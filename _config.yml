@@ -1,0 +1,40 @@
+title: Thiru Vajjala Blogs
+description: Technical Blogs
+
+url: https://tvajjala.github.io
+# Only necessary when hosting your site in a sub-directory. Project sites hosted on GitHub Pages are the common use-case of this variable.
+baseurl: # Ex: /project-page
+paginate_path: "blog/page:num/"
+permalink: blog/:title/
+
+# Header Option
+# header: large
+
+sass:
+    style: compressed
+
+markdown: kramdown
+highlighter: rouge
+plugins: [jekyll-paginate]
+paginate: 5
+
+navigation:
+    - title: Home
+      url: /index.html
+    - title: About
+      url: /about
+    - title: Contact
+      url: /contact
+
+social:
+    github: tvajjala
+    twitter: thiru_vajjala
+    facebook: tvajjala
+    email: tvajjala@gmail.com
+    linkedin: tvajjala
+    youtube: tvajjala
+
+google_analytics: "UA-XXXXX-1"
+
+disqus:
+    shortname: tvajjala
