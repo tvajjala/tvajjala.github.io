@@ -1,1 +1,1 @@
-# tvajjala.github.io
+# Technical Blog
