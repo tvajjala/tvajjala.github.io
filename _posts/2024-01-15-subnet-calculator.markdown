@@ -2,7 +2,7 @@
 layout: post
 title:  "Subnet Calculator"
 date:   2024-01-15
-description: Subnet Calculator Algorithm
+description: Subnet CIDR range Calculator Algorithm
 ---
 
 <p class="intro"><span class="dropcap">C</span>urabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Aenean lacinia bibendum nulla sed consectetur.</p>

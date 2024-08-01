@@ -2,7 +2,7 @@
 layout: post
 title:  "Video Streaming System Design"
 date:   2024-06-31
-description: YouTube or NetFlix System Design 
+description: Streaming services like YouTube/Netflix/Hulu
 ---
 
 

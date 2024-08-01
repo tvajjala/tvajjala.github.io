@@ -2,7 +2,7 @@
 layout: post
 title:  "Web Crawler System Design"
 date:   2024-06-12
-description: Web Crawler System Design 
+description: WebCrawlers are used in search engine optimization and mirror image creation.
 ---
 
 

@@ -2,6 +2,7 @@
 layout: post
 title:  "EBay Bidding System Design"
 date:   2024-05-01
+description: Online auction and bidding system services
 ---
 
 

@@ -2,7 +2,7 @@
 layout: post
 title:  "File Storage System Design"
 date:   2024-04-01
-description: Dropbox /Google Drive System Design
+description: Distributed file storage services such as Dropbox/Google Drive System Design
 ---
 
 <p class="intro"><span class="dropcap">L</span>orem ipsum thor smash liege-bastogne-liege landbouwkrediet ombregt krabbe, rouleur derby is for lovers bonk giro gilbert bidon. Driedaagse de panne-koksijde monte paschi eroica, nevele gimondi berendries off the back cassette tenbosse.</p>
