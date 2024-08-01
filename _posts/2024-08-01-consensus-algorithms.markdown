@@ -4,14 +4,11 @@ title:  "Distributed Consensus Algorithms"
 date:   2024-08-01
 description: Popular distributed consensus algorithms such as Paxos, Raft and ZAB 
 ---
-
-
-
 > Consensus algorithms used in distributed systems to ensure that all
 > processes agree on a single value.
 
-
--   Paxos is fundamentally about reaching agreement in a network of unreliable components.
+  
+- Paxos is fundamentally about reaching agreement in a network of unreliable components.
     -   It ensures that a single value is agreed upon among the participants, even if some of them fail.
 -   Raft’s primary goal is to simplify the consensus process.
     -   It breaks down the process into smaller sub problems.
@@ -22,13 +19,13 @@ description: Popular distributed consensus algorithms such as Paxos, Raft and ZA
 
 ##### Paxos (Prepare Accept XO)
 
--   Phases: Paxos operates mainly in two phases — Prepare and Accept.
+-   **Phases:** Paxos operates mainly in two phases — Prepare and Accept.
     -   The Prepare phase is about proposing a value, and the Accept phase is about agreeing on it.
--   Multi-Paxos: An optimization where one node remains the leader until it fails, reducing the number of messages.
+-   **Multi-Paxos:** An optimization where one node remains the leader until it fails, reducing the number of messages.
     -   This is especially useful in systems where leadership changes are costly.
--   Advantages: Proven correctness and wide applicability.
+-   **Advantages:** Proven correctness and wide applicability.
     -   It’s a foundation for many other consensus algorithms.
--   Disadvantages: Its complexity makes it hard to implement and understand.
+-   **Disadvantages:** Its complexity makes it hard to implement and understand.
     -   Many systems opt for simpler algorithms due to this.
 
 <span class="note">
