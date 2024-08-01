@@ -5,61 +5,90 @@ date:   2024-06-31
 description: YouTube or NetFlix System Design 
 ---
 
-<p class="intro"><span class="dropcap">C</span>urabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Aenean lacinia bibendum nulla sed consectetur.</p>
 
-# Heading 1
 
-## Heading 2
 
-### Heading 3
+<p class="intro"><span class="dropcap">Y</span>ouTube  looks simple: content creators upload videos and viewers click play. 
+Is it really that simple? Not really. There are lots of complex technologies underneath the simplicity.
 
-#### Heading 4
 
-##### Heading 5
+<h4> Functional Requirements</h4>
 
-###### Heading 6
+<ol>
+<li>User should be able to upload and watch videos</li> 
+<li>System should support different video formats</li> 
+<li>System should recommend videos to viewers</li> 
+</ol>
 
-<blockquote>Aenean lacinia bibendum nulla sed consectetur. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum. Nulla vitae elit libero, a pharetra augue. Curabitur blandit tempus porttitor. Donec sed odio dui. Cras mattis consectetur purus sit amet fermentum.</blockquote>
+<h4> Non-Functional Requirements</h4>
 
-Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+<ol>
+<li>System should highly reliable/scalable</li> 
+<li>System should be highly available with eventual consistency</li> 
+</ol>
 
-## Unordered List
-* List Item
-* Longer List Item
-  * Nested List Item
-  * Nested Item
-* List Item
+<h4> Capacity Estimation</h4>
 
-## Ordered List
-1. List Item
-2. Longer List Item
-    1. Nested OL Item
-    2. Another Nested Item
-3. List Item
+<h6> Throughput </h6>
+<ul>
+<li>DAU : 5M users and each user watch 5 video/day</li> 
+<li>25Million views/day->  250 Views/sec(RPS)</li> 
+<li>10% of users upload->  5 videos/sec</li> 
+</ul>
+<h6>Storage</h6>
+<ul>
+<li>5M X 500MB= 250 TB/day</li> 
+</ul>
 
-## Definition List
-<dl>
-  <dt>Coffee</dt>
-  <dd>Black hot drink</dd>
-  <dt>Milk</dt>
-  <dd>White cold drink</dd>
-</dl>
 
-Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus mollis interdum. Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+<figure>
+	<img src="/assets/img/youtube-system-design.png" alt=""> 
+	<figcaption>Video Streaming High Level System Design Components</figcaption>
+</figure>
 
-## Table
+<h4>Low Level Component Design </h4>
 
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
-| Header      | Title       |
-| Paragraph   | Text        |
 
-Cras justo odio, dapibus ac facilisis in, egestas eget quam. Curabitur blandit tempus porttitor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+User uploads videos into object storage, transcoder queue process them asynchronously and encodes into different format.
+Different video formats make it available to CDN to improve view experience.
+Metadata stored into Cassandra database.
+video recommendation service user two -tower approach to generation video recommendations.
 
-Maecenas faucibus mollis interdum. Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Etiam porta sem malesuada magna mollis euismod. Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum.
 
-Sed posuere consectetur est at lobortis. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
 
-Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Maecenas faucibus mollis interdum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+
+<h4> Recommendation Top K Movies </h4>
+
+
+
+{%- highlight python -%}
+from heapq import *
+
+class ListNode:
+def __init__(self, val=0, nextNode=None):
+self.val= val
+self.next = nextNode
+
+
+def topKMovies(arrays):
+heap = []
+for head in arrays:
+heappush(heap, (head.val, head))
+
+    topMovies = []
+    while heap:
+        nodeVal, node = heappop(heap)
+        topMovies.append(nodeVal)
+        if node.next:
+            heappush(heap, (node.next.val, node.next))
+    
+    return topMovies
+
+if __name__=="__main__":
+
+    n1 = ListNode(1, ListNode(5, ListNode(7, None)))
+    n2 = ListNode(2, ListNode(4, ListNode(8, None)))
+    array = [n1, n2]
+    print(topKMovies(array))
+
+{%- endhighlight -%}
