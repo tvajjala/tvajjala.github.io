@@ -5,27 +5,329 @@
     <description>Technical Blogs</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 01 Aug 2024 10:42:25 -0500</pubDate>
-    <lastBuildDate>Thu, 01 Aug 2024 10:42:25 -0500</lastBuildDate>
+    <pubDate>Thu, 01 Aug 2024 13:41:29 -0500</pubDate>
+    <lastBuildDate>Thu, 01 Aug 2024 13:41:29 -0500</lastBuildDate>
     <generator>Jekyll v4.3.3</generator><item>
+        <title>Distributed Consensus Algorithms</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Consensus algorithms used in distributed systems to ensure that all
+processes agree on a single value.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Paxos is fundamentally about reaching agreement in a network of unreliable components.
+    &lt;ul&gt;
+      &lt;li&gt;It ensures that a single value is agreed upon among the participants, even if some of them fail.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Raft’s primary goal is to simplify the consensus process.
+    &lt;ul&gt;
+      &lt;li&gt;It breaks down the process into smaller sub problems.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ZAB is about total order broadcast.
+    &lt;ul&gt;
+      &lt;li&gt;It ensures all actions are executed in the same order across all nodes.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;how-it-works&quot;&gt;How it works&lt;/h4&gt;
+
+&lt;h5 id=&quot;paxos-prepare-accept-xo&quot;&gt;Paxos (Prepare Accept XO)&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Phases: Paxos operates mainly in two phases — Prepare and Accept.
+    &lt;ul&gt;
+      &lt;li&gt;The Prepare phase is about proposing a value, and the Accept phase is about agreeing on it.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Multi-Paxos: An optimization where one node remains the leader until it fails, reducing the number of messages.
+    &lt;ul&gt;
+      &lt;li&gt;This is especially useful in systems where leadership changes are costly.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Advantages: Proven correctness and wide applicability.
+    &lt;ul&gt;
+      &lt;li&gt;It’s a foundation for many other consensus algorithms.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Disadvantages: Its complexity makes it hard to implement and understand.
+    &lt;ul&gt;
+      &lt;li&gt;Many systems opt for simpler algorithms due to this.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;
+Paxos protocol is named after a fictional legislative consensus system
+on the Greek island of Paxos, which is known for its complex political
+landscape.
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;raft&quot;&gt;Raft&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Leader Election: Raft has a unique approach to leader election.
+    &lt;ul&gt;
+      &lt;li&gt;A new leader is elected whenever the current one fails.&lt;/li&gt;
+      &lt;li&gt;This ensures system availability.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Log Replication: The leader is responsible for log replication.
+    &lt;ul&gt;
+      &lt;li&gt;It ensures that all logs are consistent across nodes.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Advantages: Its main advantage is its simplicity.
+    &lt;ul&gt;
+      &lt;li&gt;It’s easier to understand and implement than Paxos.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Disadvantages: Some argue it’s not as generalized as Paxos.
+    &lt;ul&gt;
+      &lt;li&gt;However, its simplicity often outweighs this disadvantage.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;zab-zookeeper-atomic-broadcast&quot;&gt;ZAB (Zookeeper Atomic Broadcast)&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Election Phase: A leader is elected.
+    &lt;ul&gt;
+      &lt;li&gt;This is crucial for the subsequent phases.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Discovery Phase: The leader establishes synchronization with all followers.
+    &lt;ul&gt;
+      &lt;li&gt;This ensures that all nodes start from a consistent state.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Broadcast Phase: The leader broadcasts client updates.
+    &lt;ul&gt;
+      &lt;li&gt;This ensures that all nodes have the same data.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Advantages: Tailored for ZooKeeper’s needs, ensuring strong consistency.&lt;/li&gt;
+  &lt;li&gt;Disadvantages: It’s specific to ZooKeeper’s use case.
+    &lt;ul&gt;
+      &lt;li&gt;This might make it less suitable for other applications.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;real-life-use-cases&quot;&gt;Real-life Use Cases&lt;/h4&gt;
+&lt;h5 id=&quot;paxos&quot;&gt;Paxos:&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Distributed Databases: Systems like Google’s Spanner employ Paxos for global consistency.
+    &lt;ul&gt;
+      &lt;li&gt;It ensures that data is consistent across global data centers.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Configuration Management: Chubby, a lock service by Google, uses Paxos.
+    &lt;ul&gt;
+      &lt;li&gt;It ensures that configuration data is consistent.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Apache Cassandra uses Paxos, a consensus protocol, to achieve strong consistency. Paxos is also used in Cassandra for leader election&lt;/p&gt;
+
+&lt;h5 id=&quot;raft-1&quot;&gt;Raft:&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Storage Systems: CockroachDB, a distributed SQL database, uses Raft.
+    &lt;ul&gt;
+      &lt;li&gt;It ensures data consistency across nodes.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Service Orchestration: Kubernetes, the container orchestration system, employs etcd which uses Raft.
+    &lt;ul&gt;
+      &lt;li&gt;It ensures that configuration data is consistent across nodes.&lt;/li&gt;
+      &lt;li&gt;Other systems that use Raft include Etcd, CockroachDB, and DynamoDB.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;zab&quot;&gt;ZAB:&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Distributed Coordination: Apache ZooKeeper, which uses ZAB, is pivotal for systems like Kafka.
+    &lt;ul&gt;
+      &lt;li&gt;It ensures that nodes in a distributed system coordinate effectively.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;references&quot;&gt;References&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://lamport.azurewebsites.net/pubs/paxos-simple.pdf&quot;&gt;https://lamport.azurewebsites.net/pubs/paxos-simple.pdf&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/jguamie/system-design/blob/master/notes/raft-distributed-consensus.md&quot;&gt;https://github.com/jguamie/system-design/blob/master/notes/raft-distributed-consensus.md&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://medium.com/@remisharoon/paxos-vs-raft-vs-zab-a-comprehensive-dive-into-distributed-consensus-protocols-6243a3f6539b&quot;&gt;https://medium.com/@remisharoon/paxos-vs-raft-vs-zab-a-comprehensive-dive-into-distributed-consensus-protocols-6243a3f6539b&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description><description>&lt;blockquote&gt;
+  &lt;p&gt;Consensus algorithms used in distributed systems to ensure that all
+processes agree on a single value.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description><pubDate>Thu, 01 Aug 2024 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/blog/consensus-algorithms/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/consensus-algorithms/</guid></item><item>
+        <title>Broadcasting Protocols</title>
+        <description>&lt;h3 id=&quot;broadcast-protocols&quot;&gt;Broadcast Protocols&lt;/h3&gt;
+
+&lt;p&gt;The popular message broadcasting techniques in a distributed system are the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;point-to-point broadcast&lt;/li&gt;
+  &lt;li&gt;eager reliable broadcast&lt;/li&gt;
+  &lt;li&gt;gossip protocol&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;point-to-point-broadcast&quot;&gt;Point-To-Point Broadcast&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The producer sends a message directly to the consumers in a point-to-point broadcast.&lt;/li&gt;
+  &lt;li&gt;The retry mechanism on the producer and deduplication mechanism on the consumers makes the point-to-point broadcast reliable.&lt;/li&gt;
+  &lt;li&gt;The messages will be lost when the producer and the consumer fail simultaneously&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;eager-reliable-broadcast&quot;&gt;Eager Reliable Broadcast&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Every node re-broadcasts the messages to every other node via reliable network links.&lt;/li&gt;
+  &lt;li&gt;This approach provides improved fault tolerance because messages are not lost when both the producer and the consumer fail simultaneously.&lt;/li&gt;
+  &lt;li&gt;The message will be re-broadcast by the remaining nodes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;gossip-protocol&quot;&gt;Gossip Protocol&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The gossip protocol is a decentralized peer-to-peer communication technique to transmit messages in an enormous distributed system&lt;/li&gt;
+  &lt;li&gt;The key concept of gossip protocol is that every node periodically sends out a message to a subset of other random nodes.&lt;/li&gt;
+  &lt;li&gt;The entire system will receive the particular message eventually with a high probability.&lt;/li&gt;
+  &lt;li&gt;In layman’s terms, the gossip protocol is a technique for nodes to build a global map through limited local interactions&lt;/li&gt;
+  &lt;li&gt;The gossip protocol is built on a robust, scalable, and eventually consistent algorithm. The gossip protocol is typically used to maintain the node membership list, achieve consensus, and fault detection in a distributed system&lt;/li&gt;
+  &lt;li&gt;The gossip protocol is reliable because a node failure can be overcome by the retransmission of a message by another node.&lt;/li&gt;
+  &lt;li&gt;Following mechanism can be implemented with gossip protocol&lt;/li&gt;
+  &lt;li&gt;First-in-first-out (FIFO) broadcast.&lt;/li&gt;
+  &lt;li&gt;causality broadcast.&lt;/li&gt;
+  &lt;li&gt;total order broadcast.&lt;/li&gt;
+  &lt;li&gt;The gossip protocol parameters such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cycle&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fanout&lt;/code&gt; can be tuned to improve the probabilistic guarantees of the gossip protocol&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;types-of-gossip-protocol&quot;&gt;Types of Gossip Protocol&lt;/h3&gt;
+
+&lt;p&gt;The time required by the gossip protocol to propagate a message across the system and the network traffic generated in propagating a message
+must be taken into consideration while choosing the type of gossip protocol for a particular use case. The gossip protocol can be broadly categorized into the following types.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;anti-entropy model&lt;/li&gt;
+  &lt;li&gt;rumor-mongering model&lt;/li&gt;
+  &lt;li&gt;aggregation model&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;anti-entropy-model&quot;&gt;Anti-Entropy Model&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The anti-entropy algorithm was introduced to reduce the entropy
+between replicas of a stateful service such as the database.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;This algorithm majorly used in databases to keep replicas consistent.&lt;/li&gt;
+  &lt;li&gt;replicas are patched after comparing the datasets&lt;/li&gt;
+  &lt;li&gt;The node with the newest message shares it with other nodes in every gossip round&lt;/li&gt;
+  &lt;li&gt;The anti-entropy model usually transfers the whole dataset resulting in unnecessary bandwidth usage.&lt;/li&gt;
+  &lt;li&gt;following techniques are used to identify the differences and send only delta which reduces bandwidth usage&lt;/li&gt;
+  &lt;li&gt;checksum&lt;/li&gt;
+  &lt;li&gt;recent update list,&lt;/li&gt;
+  &lt;li&gt;Merkle tree&lt;/li&gt;
+  &lt;li&gt;The anti-entropy gossip protocol will send an unbounded number of messages without termination
+Data deduplication is a computing technique that removes duplicate copies of data from databases and data storage&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;rumor-mongering-gossip-protocol&quot;&gt;Rumor-Mongering Gossip Protocol&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;with this protocol only the latest updates are transferred across nodes&lt;/li&gt;
+  &lt;li&gt;A message will be marked as removed after a few rounds of communication to limit the number of messages.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;aggregation-gossip-protocol&quot;&gt;Aggregation Gossip Protocol&lt;/h3&gt;
+&lt;p&gt;The aggregation gossip protocol computes a system-wide aggregate by sampling information across every node and combining the values to
+generate a system-wide value [10].&lt;/p&gt;
+
+&lt;h4 id=&quot;gossip-protocol-performance&quot;&gt;Gossip Protocol Performance&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;The number of nodes that will receive the message from a particular node is known as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fanout&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;The count of gossip rounds required to spread a message across the entire cluster is known as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cycle&lt;/code&gt;
+Cycles necessary to spread a message across the cluster = O(log n) to the base of fanout, where n = total number of nodes&lt;/li&gt;
+  &lt;li&gt;Fanout 10&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Total Nodes 1000&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Formula: log(1000) with base 10 → 3 Cycles&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;gossip-protocol-use-cases&quot;&gt;Gossip Protocol Use Cases&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;database replication&lt;/li&gt;
+  &lt;li&gt;information dissemination&lt;/li&gt;
+  &lt;li&gt;maintaining cluster membership&lt;/li&gt;
+  &lt;li&gt;failure detection&lt;/li&gt;
+  &lt;li&gt;generate aggregations (calculate average, maximum, sum)&lt;/li&gt;
+  &lt;li&gt;generate overlay networks&lt;/li&gt;
+  &lt;li&gt;leader election&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;system-usecases&quot;&gt;System UseCases&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Apache Cassandra employs the gossip protocol to maintain cluster membership, transfer node metadata (token assignment), repair unread data using Merkle trees, and node failure detection.&lt;/li&gt;
+  &lt;li&gt;Consul utilizes the swim-gossip protocol variant for group membership, leader election, and failure detection of consul agents&lt;/li&gt;
+  &lt;li&gt;CockroachDB operates the gossip protocol to propagate the node metadata&lt;/li&gt;
+  &lt;li&gt;Hyperledger Fabric blockchain uses the gossip protocol for group membership and ledger metadata transfer&lt;/li&gt;
+  &lt;li&gt;Riak utilizes the gossip protocol to transmit consistent hash ring state and node metadata around the cluster&lt;/li&gt;
+  &lt;li&gt;Amazon S3 uses the gossip protocol to spread server state across the system&lt;/li&gt;
+  &lt;li&gt;Amazon Dynamo employs the gossip protocol for failure detection, and keeping track of node membership&lt;/li&gt;
+  &lt;li&gt;Redis cluster uses the gossip protocol to propagate the node metadata&lt;/li&gt;
+  &lt;li&gt;Bitcoin uses the gossip protocol to spread the nonce value across the mining nodes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;reference&quot;&gt;Reference&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://highscalability.com/gossip-protocol-explained/&quot;&gt;https://highscalability.com/gossip-protocol-explained/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><description>&lt;h3 id=&quot;broadcast-protocols&quot;&gt;Broadcast Protocols&lt;/h3&gt;
+</description><pubDate>Wed, 31 Jul 2024 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/blog/broadcast_protocols/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/broadcast_protocols/</guid></item><item>
         <title>Video Streaming System Design</title>
         <description>&lt;p&gt;&lt;strong&gt;Table of content:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#item-one&quot;&gt;Functional Requirements&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-two&quot;&gt;Non Functional Requirements&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design Components&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;Y&lt;/span&gt;ouTube  looks simple: content creators upload videos and viewers click play. 
-Is it really that simple? Not really. There are lots of complex technologies underneath the simplicity.
+&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;Y&lt;/span&gt;ouTube or Netflix are popular video streaming services.
+These services allow users to upload / stream /share videos.
+
 
 &lt;a id=&quot;item-one&quot;&gt;&lt;/a&gt;
 &lt;h4&gt;&lt;a href=&quot;1&quot;&gt;&lt;/a&gt; Functional Requirements&lt;/h4&gt;
 
 &lt;ol&gt;
-&lt;li&gt;User should be able to upload and watch videos&lt;/li&gt; 
+&lt;li&gt;User should be able to upload and stream videos&lt;/li&gt; 
 &lt;li&gt;System should support different video formats&lt;/li&gt; 
 &lt;li&gt;System should recommend videos to viewers&lt;/li&gt; 
 &lt;/ol&gt;
@@ -54,30 +356,31 @@ Is it really that simple? Not really. There are lots of complex technologies und
 
 
 &lt;a id=&quot;item-four&quot;&gt;&lt;/a&gt;
-&lt;h4&gt;High Level System Design Components &lt;/h4&gt;
+&lt;h4&gt;High Level System Design &lt;/h4&gt;
 
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/img/youtube-system-design.png&quot; alt=&quot;&quot; width=&quot;50%&quot; /&gt; 
+	&lt;img src=&quot;/assets/img/youtube-system-design.png&quot; alt=&quot;&quot; width=&quot;70%&quot; /&gt; 
 	&lt;figcaption&gt;Video Streaming High Level System Design Components&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 
+&lt;ul&gt;
+&lt;li&gt;  User uploads videos into object storage and updates medata into database(Cassandra) &lt;/li&gt;
+&lt;li&gt;  Transcoder service will read from queue process them asynchronously and encodes into different format.&lt;/li&gt;
+&lt;li&gt;  Different video formats make it available to CDN to improve view experience.&lt;/li&gt;
+&lt;li&gt;  Video recommendation service uses two-tower approach to generation video recommendations.&lt;/li&gt;
+&lt;li&gt;  Client stream videos on their devices using different streaming protocols such as Apple HTTP Live/MPEG.&lt;/li&gt;
+&lt;/ul&gt;
+
+
 &lt;p&gt;
-
-- User uploads videos into object storage, transcoder queue process them asynchronously and encodes into different format.
-- Different video formats make it available to CDN to improve view experience.
-- Metadata stored into Cassandra database.
-- video recommendation service user two -tower approach to generation video recommendations.
-&lt;/p&gt;
-
-
 &lt;a id=&quot;item-five&quot;&gt;&lt;/a&gt;
 &lt;h4&gt; Algorithms &lt;/h4&gt;
 &lt;p&gt;
 Below algorithms helps to find top K movie recommendation using Heap DataStructure.
 &lt;/p&gt;
 
-&lt;span style=&quot;font-size:0.5em;width: 60%&quot;&gt;
+&lt;span style=&quot;font-size:0.7em;width: 60%&quot;&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;heapq&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
@@ -107,13 +410,13 @@ Below algorithms helps to find top K movie recommendation using Heap DataStructu
     &lt;span class=&quot;n&quot;&gt;array&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;topKMovies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;/span&gt;
-&lt;/p&gt;
+&lt;/p&gt;&lt;/p&gt;
 </description><description>&lt;p&gt;&lt;strong&gt;Table of content:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#item-one&quot;&gt;Functional Requirements&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-two&quot;&gt;Non Functional Requirements&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design Components&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description><pubDate>Mon, 01 Jul 2024 00:00:00 -0500</pubDate>

@@ -7,11 +7,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
-	<title>Web Crawler System Design</title>
+	<title>Broadcasting Protocols</title>
 
 	<!-- Open Graph Meta -->
-	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Web Crawler System Design" property="og:title" /><meta content="article" property="og:type" /><meta content="WebCrawlers are used in search engine optimization, mirror site creation, identify copyright infringements." property="og:description" /><meta content="http://localhost:4000/blog/web-crawler/" property="og:url" /><meta
-		content="2024-06-12T00:00:00-05:00"
+	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Broadcasting Protocols" property="og:title" /><meta content="article" property="og:type" /><meta content="Distributed System Broadcasting Protocols" property="og:description" /><meta content="http://localhost:4000/blog/broadcast_protocols/" property="og:url" /><meta
+		content="2024-07-31T00:00:00-05:00"
 		property="article:published_time"
 	/>
 	<meta content="http://localhost:4000/about/" property="article:author" /><meta
@@ -20,7 +20,7 @@
 	/><!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@thiru_vajjala" />
-	<meta name="twitter:creator" content="@thiru_vajjala" /><meta name="twitter:title" content="Web Crawler System Design" /><meta name="twitter:url" content="http://localhost:4000/blog/web-crawler/" /><meta name="twitter:description" content="WebCrawlers are used in search engine optimization, mirror site creation, identify copyright infringements." /><meta
+	<meta name="twitter:creator" content="@thiru_vajjala" /><meta name="twitter:title" content="Broadcasting Protocols" /><meta name="twitter:url" content="http://localhost:4000/blog/broadcast_protocols/" /><meta name="twitter:description" content="Distributed System Broadcasting Protocols" /><meta
 		name="twitter:image:src"
 		content="http://localhost:4000/assets/img/touring.jpg"
 	/><!-- Favicon -->
@@ -36,7 +36,7 @@
 	<!-- Canonical URL -->
 	<link
 		rel="canonical"
-		href="http://localhost:4000/blog/web-crawler/"
+		href="http://localhost:4000/blog/broadcast_protocols/"
 	/><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -67,46 +67,138 @@ ga('send', 'pageview');
 <div class="content">
       <div class="container">
          <article class="post"><header>
-    <h1 class="postTitle">Web Crawler System Design</h1>
-    <p class="meta">June 12, 2024 | <span class="time">0</span> Minute Read</p>
+    <h1 class="postTitle">Broadcasting Protocols</h1>
+    <p class="meta">July 31, 2024 | <span class="time">4</span> Minute Read</p>
   </header>
 
-  <h4> Functional Requirements</h4>
+  <h3 id="broadcast-protocols">Broadcast Protocols</h3>
 
-<ol>
-<li>System should download and validate pages</li> 
-<li>System should able to generate mirror site</li> 
-<li>System should identify copyright infringements</li> 
-<li>Restrict crawling per /robots.txt</li> 
-</ol>
+<p>The popular message broadcasting techniques in a distributed system are the following:</p>
 
-<h4> Non-Functional Requirements</h4>
-
-<ol>
-<li>System should highly reliable/scalable</li> 
-<li>System should be highly available with eventual consistency</li> 
-</ol>
-
-<h4> Capacity Estimation</h4>
-
-<h6> Throughput </h6>
 <ul>
-<li>DAU :10M pages/day -&gt; 100 pages/sec</li> 
-</ul>
-<h6>Storage</h6>
-<ul>
-<li>100KBX10M -&gt; 1GB/day</li> 
+  <li>point-to-point broadcast</li>
+  <li>eager reliable broadcast</li>
+  <li>gossip protocol</li>
 </ul>
 
-<figure>
-	<img src="/assets/img/web_crawler.png" alt="" /> 
-	<figcaption>WebCrawler High Level System Design Components</figcaption>
-</figure>
+<h4 id="point-to-point-broadcast">Point-To-Point Broadcast</h4>
 
+<ul>
+  <li>The producer sends a message directly to the consumers in a point-to-point broadcast.</li>
+  <li>The retry mechanism on the producer and deduplication mechanism on the consumers makes the point-to-point broadcast reliable.</li>
+  <li>The messages will be lost when the producer and the consumer fail simultaneously</li>
+</ul>
+
+<h4 id="eager-reliable-broadcast">Eager Reliable Broadcast</h4>
+
+<ul>
+  <li>Every node re-broadcasts the messages to every other node via reliable network links.</li>
+  <li>This approach provides improved fault tolerance because messages are not lost when both the producer and the consumer fail simultaneously.</li>
+  <li>The message will be re-broadcast by the remaining nodes.</li>
+</ul>
+
+<h4 id="gossip-protocol">Gossip Protocol</h4>
+
+<ul>
+  <li>The gossip protocol is a decentralized peer-to-peer communication technique to transmit messages in an enormous distributed system</li>
+  <li>The key concept of gossip protocol is that every node periodically sends out a message to a subset of other random nodes.</li>
+  <li>The entire system will receive the particular message eventually with a high probability.</li>
+  <li>In layman’s terms, the gossip protocol is a technique for nodes to build a global map through limited local interactions</li>
+  <li>The gossip protocol is built on a robust, scalable, and eventually consistent algorithm. The gossip protocol is typically used to maintain the node membership list, achieve consensus, and fault detection in a distributed system</li>
+  <li>The gossip protocol is reliable because a node failure can be overcome by the retransmission of a message by another node.</li>
+  <li>Following mechanism can be implemented with gossip protocol</li>
+  <li>First-in-first-out (FIFO) broadcast.</li>
+  <li>causality broadcast.</li>
+  <li>total order broadcast.</li>
+  <li>The gossip protocol parameters such as <code class="language-plaintext highlighter-rouge">cycle</code> and <code class="language-plaintext highlighter-rouge">fanout</code> can be tuned to improve the probabilistic guarantees of the gossip protocol</li>
+</ul>
+
+<h3 id="types-of-gossip-protocol">Types of Gossip Protocol</h3>
+
+<p>The time required by the gossip protocol to propagate a message across the system and the network traffic generated in propagating a message
+must be taken into consideration while choosing the type of gossip protocol for a particular use case. The gossip protocol can be broadly categorized into the following types.</p>
+<ul>
+  <li>anti-entropy model</li>
+  <li>rumor-mongering model</li>
+  <li>aggregation model</li>
+</ul>
+
+<h3 id="anti-entropy-model">Anti-Entropy Model</h3>
+
+<blockquote>
+  <p>The anti-entropy algorithm was introduced to reduce the entropy
+between replicas of a stateful service such as the database.</p>
+</blockquote>
+
+<ul>
+  <li>This algorithm majorly used in databases to keep replicas consistent.</li>
+  <li>replicas are patched after comparing the datasets</li>
+  <li>The node with the newest message shares it with other nodes in every gossip round</li>
+  <li>The anti-entropy model usually transfers the whole dataset resulting in unnecessary bandwidth usage.</li>
+  <li>following techniques are used to identify the differences and send only delta which reduces bandwidth usage</li>
+  <li>checksum</li>
+  <li>recent update list,</li>
+  <li>Merkle tree</li>
+  <li>The anti-entropy gossip protocol will send an unbounded number of messages without termination
+Data deduplication is a computing technique that removes duplicate copies of data from databases and data storage</li>
+</ul>
+
+<h3 id="rumor-mongering-gossip-protocol">Rumor-Mongering Gossip Protocol</h3>
+<ul>
+  <li>with this protocol only the latest updates are transferred across nodes</li>
+  <li>A message will be marked as removed after a few rounds of communication to limit the number of messages.</li>
+</ul>
+
+<h3 id="aggregation-gossip-protocol">Aggregation Gossip Protocol</h3>
+<p>The aggregation gossip protocol computes a system-wide aggregate by sampling information across every node and combining the values to
+generate a system-wide value [10].</p>
+
+<h4 id="gossip-protocol-performance">Gossip Protocol Performance</h4>
+<ul>
+  <li>The number of nodes that will receive the message from a particular node is known as the <code class="language-plaintext highlighter-rouge">fanout</code>.</li>
+  <li>The count of gossip rounds required to spread a message across the entire cluster is known as the <code class="language-plaintext highlighter-rouge">cycle</code>
+Cycles necessary to spread a message across the cluster = O(log n) to the base of fanout, where n = total number of nodes</li>
+  <li>Fanout 10</li>
+  <li>
+    <p>Total Nodes 1000</p>
+  </li>
+  <li>Formula: log(1000) with base 10 → 3 Cycles</li>
+</ul>
+
+<h4 id="gossip-protocol-use-cases">Gossip Protocol Use Cases</h4>
+<ul>
+  <li>database replication</li>
+  <li>information dissemination</li>
+  <li>maintaining cluster membership</li>
+  <li>failure detection</li>
+  <li>generate aggregations (calculate average, maximum, sum)</li>
+  <li>generate overlay networks</li>
+  <li>leader election</li>
+</ul>
+
+<h4 id="system-usecases">System UseCases</h4>
+
+<ul>
+  <li>Apache Cassandra employs the gossip protocol to maintain cluster membership, transfer node metadata (token assignment), repair unread data using Merkle trees, and node failure detection.</li>
+  <li>Consul utilizes the swim-gossip protocol variant for group membership, leader election, and failure detection of consul agents</li>
+  <li>CockroachDB operates the gossip protocol to propagate the node metadata</li>
+  <li>Hyperledger Fabric blockchain uses the gossip protocol for group membership and ledger metadata transfer</li>
+  <li>Riak utilizes the gossip protocol to transmit consistent hash ring state and node metadata around the cluster</li>
+  <li>Amazon S3 uses the gossip protocol to spread server state across the system</li>
+  <li>Amazon Dynamo employs the gossip protocol for failure detection, and keeping track of node membership</li>
+  <li>Redis cluster uses the gossip protocol to propagate the node metadata</li>
+  <li>Bitcoin uses the gossip protocol to spread the nonce value across the mining nodes</li>
+</ul>
+
+<h4 id="reference">Reference</h4>
+
+<ul>
+  <li><a href="https://highscalability.com/gossip-protocol-explained/">https://highscalability.com/gossip-protocol-explained/</a></li>
+</ul>
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev" href="/blog/url-shortener/"><span>&laquo;&nbsp;URL Shortener System Design</span></a><a class="next" href="/blog/video-streaming/"><span>Video Streaming System Design&nbsp;&raquo;</span></a></footer>
+  <footer class="postNav clearfix"><a class="prev" href="/blog/video-streaming/"><span>&laquo;&nbsp;Video Streaming System Design</span></a><a class="next" href="/blog/consensus-algorithms/"><span>Distributed Consensus Algorithms&nbsp;&raquo;</span></a></footer>
 </article>
       </div>
    </div><!-- end .content --><div class="footer">

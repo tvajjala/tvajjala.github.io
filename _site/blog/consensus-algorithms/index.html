@@ -7,11 +7,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
-	<title>Web Crawler System Design</title>
+	<title>Distributed Consensus Algorithms</title>
 
 	<!-- Open Graph Meta -->
-	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Web Crawler System Design" property="og:title" /><meta content="article" property="og:type" /><meta content="WebCrawlers are used in search engine optimization, mirror site creation, identify copyright infringements." property="og:description" /><meta content="http://localhost:4000/blog/web-crawler/" property="og:url" /><meta
-		content="2024-06-12T00:00:00-05:00"
+	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Distributed Consensus Algorithms" property="og:title" /><meta content="article" property="og:type" /><meta content="Popular distributed consensus algorithms such as Paxos, Raft and ZAB" property="og:description" /><meta content="http://localhost:4000/blog/consensus-algorithms/" property="og:url" /><meta
+		content="2024-08-01T00:00:00-05:00"
 		property="article:published_time"
 	/>
 	<meta content="http://localhost:4000/about/" property="article:author" /><meta
@@ -20,7 +20,7 @@
 	/><!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@thiru_vajjala" />
-	<meta name="twitter:creator" content="@thiru_vajjala" /><meta name="twitter:title" content="Web Crawler System Design" /><meta name="twitter:url" content="http://localhost:4000/blog/web-crawler/" /><meta name="twitter:description" content="WebCrawlers are used in search engine optimization, mirror site creation, identify copyright infringements." /><meta
+	<meta name="twitter:creator" content="@thiru_vajjala" /><meta name="twitter:title" content="Distributed Consensus Algorithms" /><meta name="twitter:url" content="http://localhost:4000/blog/consensus-algorithms/" /><meta name="twitter:description" content="Popular distributed consensus algorithms such as Paxos, Raft and ZAB" /><meta
 		name="twitter:image:src"
 		content="http://localhost:4000/assets/img/touring.jpg"
 	/><!-- Favicon -->
@@ -36,7 +36,7 @@
 	<!-- Canonical URL -->
 	<link
 		rel="canonical"
-		href="http://localhost:4000/blog/web-crawler/"
+		href="http://localhost:4000/blog/consensus-algorithms/"
 	/><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -67,46 +67,178 @@ ga('send', 'pageview');
 <div class="content">
       <div class="container">
          <article class="post"><header>
-    <h1 class="postTitle">Web Crawler System Design</h1>
-    <p class="meta">June 12, 2024 | <span class="time">0</span> Minute Read</p>
+    <h1 class="postTitle">Distributed Consensus Algorithms</h1>
+    <p class="meta">August 01, 2024 | <span class="time">3</span> Minute Read</p>
   </header>
 
-  <h4> Functional Requirements</h4>
+  <blockquote>
+  <p>Consensus algorithms used in distributed systems to ensure that all
+processes agree on a single value.</p>
+</blockquote>
 
-<ol>
-<li>System should download and validate pages</li> 
-<li>System should able to generate mirror site</li> 
-<li>System should identify copyright infringements</li> 
-<li>Restrict crawling per /robots.txt</li> 
-</ol>
-
-<h4> Non-Functional Requirements</h4>
-
-<ol>
-<li>System should highly reliable/scalable</li> 
-<li>System should be highly available with eventual consistency</li> 
-</ol>
-
-<h4> Capacity Estimation</h4>
-
-<h6> Throughput </h6>
 <ul>
-<li>DAU :10M pages/day -&gt; 100 pages/sec</li> 
-</ul>
-<h6>Storage</h6>
-<ul>
-<li>100KBX10M -&gt; 1GB/day</li> 
+  <li>Paxos is fundamentally about reaching agreement in a network of unreliable components.
+    <ul>
+      <li>It ensures that a single value is agreed upon among the participants, even if some of them fail.</li>
+    </ul>
+  </li>
+  <li>Raft’s primary goal is to simplify the consensus process.
+    <ul>
+      <li>It breaks down the process into smaller sub problems.</li>
+    </ul>
+  </li>
+  <li>ZAB is about total order broadcast.
+    <ul>
+      <li>It ensures all actions are executed in the same order across all nodes.</li>
+    </ul>
+  </li>
 </ul>
 
-<figure>
-	<img src="/assets/img/web_crawler.png" alt="" /> 
-	<figcaption>WebCrawler High Level System Design Components</figcaption>
-</figure>
+<h4 id="how-it-works">How it works</h4>
+
+<h5 id="paxos-prepare-accept-xo">Paxos (Prepare Accept XO)</h5>
+
+<ul>
+  <li>Phases: Paxos operates mainly in two phases — Prepare and Accept.
+    <ul>
+      <li>The Prepare phase is about proposing a value, and the Accept phase is about agreeing on it.</li>
+    </ul>
+  </li>
+  <li>Multi-Paxos: An optimization where one node remains the leader until it fails, reducing the number of messages.
+    <ul>
+      <li>This is especially useful in systems where leadership changes are costly.</li>
+    </ul>
+  </li>
+  <li>Advantages: Proven correctness and wide applicability.
+    <ul>
+      <li>It’s a foundation for many other consensus algorithms.</li>
+    </ul>
+  </li>
+  <li>Disadvantages: Its complexity makes it hard to implement and understand.
+    <ul>
+      <li>Many systems opt for simpler algorithms due to this.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><span class="note">
+Paxos protocol is named after a fictional legislative consensus system
+on the Greek island of Paxos, which is known for its complex political
+landscape.
+</span></p>
+
+<h5 id="raft">Raft</h5>
+
+<ul>
+  <li>Leader Election: Raft has a unique approach to leader election.
+    <ul>
+      <li>A new leader is elected whenever the current one fails.</li>
+      <li>This ensures system availability.</li>
+    </ul>
+  </li>
+  <li>Log Replication: The leader is responsible for log replication.
+    <ul>
+      <li>It ensures that all logs are consistent across nodes.</li>
+    </ul>
+  </li>
+  <li>Advantages: Its main advantage is its simplicity.
+    <ul>
+      <li>It’s easier to understand and implement than Paxos.</li>
+    </ul>
+  </li>
+  <li>Disadvantages: Some argue it’s not as generalized as Paxos.
+    <ul>
+      <li>However, its simplicity often outweighs this disadvantage.</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="zab-zookeeper-atomic-broadcast">ZAB (Zookeeper Atomic Broadcast)</h5>
+<ul>
+  <li>Election Phase: A leader is elected.
+    <ul>
+      <li>This is crucial for the subsequent phases.</li>
+    </ul>
+  </li>
+  <li>Discovery Phase: The leader establishes synchronization with all followers.
+    <ul>
+      <li>This ensures that all nodes start from a consistent state.</li>
+    </ul>
+  </li>
+  <li>Broadcast Phase: The leader broadcasts client updates.
+    <ul>
+      <li>This ensures that all nodes have the same data.</li>
+    </ul>
+  </li>
+  <li>Advantages: Tailored for ZooKeeper’s needs, ensuring strong consistency.</li>
+  <li>Disadvantages: It’s specific to ZooKeeper’s use case.
+    <ul>
+      <li>This might make it less suitable for other applications.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="real-life-use-cases">Real-life Use Cases</h4>
+<h5 id="paxos">Paxos:</h5>
+<ul>
+  <li>Distributed Databases: Systems like Google’s Spanner employ Paxos for global consistency.
+    <ul>
+      <li>It ensures that data is consistent across global data centers.</li>
+    </ul>
+  </li>
+  <li>Configuration Management: Chubby, a lock service by Google, uses Paxos.
+    <ul>
+      <li>It ensures that configuration data is consistent.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Apache Cassandra uses Paxos, a consensus protocol, to achieve strong consistency. Paxos is also used in Cassandra for leader election</p>
+
+<h5 id="raft-1">Raft:</h5>
+
+<ul>
+  <li>Storage Systems: CockroachDB, a distributed SQL database, uses Raft.
+    <ul>
+      <li>It ensures data consistency across nodes.</li>
+    </ul>
+  </li>
+  <li>Service Orchestration: Kubernetes, the container orchestration system, employs etcd which uses Raft.
+    <ul>
+      <li>It ensures that configuration data is consistent across nodes.</li>
+      <li>Other systems that use Raft include Etcd, CockroachDB, and DynamoDB.</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="zab">ZAB:</h5>
+
+<ul>
+  <li>Distributed Coordination: Apache ZooKeeper, which uses ZAB, is pivotal for systems like Kafka.
+    <ul>
+      <li>It ensures that nodes in a distributed system coordinate effectively.</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="references">References</h5>
+
+<ul>
+  <li>
+    <p><a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/jguamie/system-design/blob/master/notes/raft-distributed-consensus.md">https://github.com/jguamie/system-design/blob/master/notes/raft-distributed-consensus.md</a></p>
+  </li>
+  <li>
+    <p><a href="https://medium.com/@remisharoon/paxos-vs-raft-vs-zab-a-comprehensive-dive-into-distributed-consensus-protocols-6243a3f6539b">https://medium.com/@remisharoon/paxos-vs-raft-vs-zab-a-comprehensive-dive-into-distributed-consensus-protocols-6243a3f6539b</a></p>
+  </li>
+</ul>
 
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev" href="/blog/url-shortener/"><span>&laquo;&nbsp;URL Shortener System Design</span></a><a class="next" href="/blog/video-streaming/"><span>Video Streaming System Design&nbsp;&raquo;</span></a></footer>
+  <footer class="postNav clearfix"><a class="prev" href="/blog/broadcast_protocols/"><span>&laquo;&nbsp;Broadcasting Protocols</span></a></footer>
 </article>
       </div>
    </div><!-- end .content --><div class="footer">

@@ -2,24 +2,25 @@
 layout: post
 title:  "Video Streaming System Design"
 date:   2024-06-31
-description: Streaming services like YouTube/Netflix/Hulu
+description: Popular streaming services such as YouTube/Netflix/Hulu helps to upload and stream videos.
 ---
 
 **Table of content:**
 - [Functional Requirements](#item-one)
 - [Non Functional Requirements](#item-two)
 - [Capacity Estimation](#item-three)
-- [High Level System Design Components](#item-four)
+- [High Level System Design](#item-four)
 - [Algorithms](#item-five)
 
-<p class="intro"><span class="dropcap">Y</span>ouTube  looks simple: content creators upload videos and viewers click play. 
-Is it really that simple? Not really. There are lots of complex technologies underneath the simplicity.
+<p class="intro"><span class="dropcap">Y</span>ouTube or Netflix are popular video streaming services.
+These services allow users to upload / stream /share videos.
+
 
 <a id="item-one"></a>
 <h4><a href="1"></a> Functional Requirements</h4>
 
 <ol>
-<li>User should be able to upload and watch videos</li> 
+<li>User should be able to upload and stream videos</li> 
 <li>System should support different video formats</li> 
 <li>System should recommend videos to viewers</li> 
 </ol>
@@ -48,30 +49,31 @@ Is it really that simple? Not really. There are lots of complex technologies und
 
 
 <a id="item-four"></a>
-<h4>High Level System Design Components </h4>
+<h4>High Level System Design </h4>
 
 <figure>
-	<img src="/assets/img/youtube-system-design.png" alt="" width="50%"> 
+	<img src="/assets/img/youtube-system-design.png" alt="" width="70%"> 
 	<figcaption>Video Streaming High Level System Design Components</figcaption>
 </figure>
 
 
+<ul>
+<li>  User uploads videos into object storage and updates medata into database(Cassandra) </li>
+<li>  Transcoder service will read from queue process them asynchronously and encodes into different format.</li>
+<li>  Different video formats make it available to CDN to improve view experience.</li>
+<li>  Video recommendation service uses two-tower approach to generation video recommendations.</li>
+<li>  Client stream videos on their devices using different streaming protocols such as Apple HTTP Live/MPEG.</li>
+</ul>
+
+
 <p>
-
-- User uploads videos into object storage, transcoder queue process them asynchronously and encodes into different format.
-- Different video formats make it available to CDN to improve view experience.
-- Metadata stored into Cassandra database.
-- video recommendation service user two -tower approach to generation video recommendations.
-</p>
-
-
 <a id="item-five"></a>
 <h4> Algorithms </h4>
 <p>
 Below algorithms helps to find top K movie recommendation using Heap DataStructure.
 </p>
 
-<span style="font-size:0.5em;width: 60%">
+<span style="font-size:0.7em;width: 60%">
 
 {%- highlight python -%}
 from heapq import *
