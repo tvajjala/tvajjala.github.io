@@ -5,14 +5,18 @@ date:   2024-06-31
 description: Streaming services like YouTube/Netflix/Hulu
 ---
 
-
-
+**Table of content:**
+- [Functional Requirements](#item-one)
+- [Non Functional Requirements](#item-two)
+- [Capacity Estimation](#item-three)
+- [High Level System Design Components](#item-four)
+- [Algorithms](#item-five)
 
 <p class="intro"><span class="dropcap">Y</span>ouTube  looks simple: content creators upload videos and viewers click play. 
 Is it really that simple? Not really. There are lots of complex technologies underneath the simplicity.
 
-
-<h4> Functional Requirements</h4>
+<a id="item-one"></a>
+<h4><a href="1"></a> Functional Requirements</h4>
 
 <ol>
 <li>User should be able to upload and watch videos</li> 
@@ -20,14 +24,16 @@ Is it really that simple? Not really. There are lots of complex technologies und
 <li>System should recommend videos to viewers</li> 
 </ol>
 
-<h4> Non-Functional Requirements</h4>
+<a id="item-two"></a>
+<h4>Non-Functional Requirements</h4>
 
 <ol>
 <li>System should highly reliable/scalable</li> 
 <li>System should be highly available with eventual consistency</li> 
 </ol>
 
-<h4> Capacity Estimation</h4>
+<a id="item-three"></a>
+<h4><a href="3"></a> Capacity Estimation</h4>
 
 <h6> Throughput </h6>
 <ul>
@@ -41,25 +47,31 @@ Is it really that simple? Not really. There are lots of complex technologies und
 </ul>
 
 
+<a id="item-four"></a>
+<h4>High Level System Design Components </h4>
+
 <figure>
-	<img src="/assets/img/youtube-system-design.png" alt=""> 
+	<img src="/assets/img/youtube-system-design.png" alt="" width="50%"> 
 	<figcaption>Video Streaming High Level System Design Components</figcaption>
 </figure>
 
-<h4>Low Level Component Design </h4>
+
+<p>
+
+- User uploads videos into object storage, transcoder queue process them asynchronously and encodes into different format.
+- Different video formats make it available to CDN to improve view experience.
+- Metadata stored into Cassandra database.
+- video recommendation service user two -tower approach to generation video recommendations.
+</p>
 
 
-User uploads videos into object storage, transcoder queue process them asynchronously and encodes into different format.
-Different video formats make it available to CDN to improve view experience.
-Metadata stored into Cassandra database.
-video recommendation service user two -tower approach to generation video recommendations.
+<a id="item-five"></a>
+<h4> Algorithms </h4>
+<p>
+Below algorithms helps to find top K movie recommendation using Heap DataStructure.
+</p>
 
-
-
-
-<h4> Recommendation Top K Movies </h4>
-
-
+<span style="font-size:0.5em;width: 60%">
 
 {%- highlight python -%}
 from heapq import *
@@ -92,3 +104,4 @@ if __name__=="__main__":
     print(topKMovies(array))
 
 {%- endhighlight -%}
+</span>
