@@ -1,11 +1,10 @@
 ---
 layout: post
 title:  "Broadcasting Protocols"
-date:   2024-07-31
-description: Distributed System Broadcasting Protocols
+date:   2024-02-10
+description: Different broadcasting protocols that are used in distributed systems.
 ---
 
-### Broadcast Protocols
 
 The popular message broadcasting techniques in a distributed system are the following:
 
@@ -74,11 +73,10 @@ generate a system-wide value \[10\].
 #### Gossip Protocol Performance
 -   The number of nodes that will receive the message from a particular node is known as the `fanout`.
 -   The count of gossip rounds required to spread a message across the entire cluster is known as the `cycle`
-Cycles necessary to spread a message across the cluster = O(log n) to the base of fanout, where n = total number of nodes
--   Fanout 10
--   Total Nodes 1000
-
-- Formula: log(1000) with base 10 → 3 Cycles
+-   Cycles necessary to spread a message across the cluster = O(log n) to the base of fanout, where n = total number of nodes
+    -   Fanout 10
+    -   Total Nodes 1000
+    -   Formula: `log(1000) with base 10 → 3 Cycles`
 
 #### Gossip Protocol Use Cases
 -   database replication

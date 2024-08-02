@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Video Streaming System Design"
-date:   2024-06-31
+date:   2023-06-31
 description: Popular streaming services such as YouTube/Netflix/Hulu helps to upload and stream videos.
 ---
 

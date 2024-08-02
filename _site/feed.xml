@@ -5,9 +5,44 @@
     <description>Technical Blogs</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 01 Aug 2024 22:21:53 -0500</pubDate>
-    <lastBuildDate>Thu, 01 Aug 2024 22:21:53 -0500</lastBuildDate>
+    <pubDate>Fri, 02 Aug 2024 10:03:25 -0500</pubDate>
+    <lastBuildDate>Fri, 02 Aug 2024 10:03:25 -0500</lastBuildDate>
     <generator>Jekyll v4.3.3</generator><item>
+        <title>Shared Nothing Architecture</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Shared nothing architecture provides low latency, high bandwidth, as well as high availability.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;popular-architectures-for-high-transaction-rate-systems&quot;&gt;Popular Architectures for high transaction rate systems&lt;/h4&gt;
+
+&lt;p&gt;The three most commonly mentioned architectures for multiprocessor high transaction rate systems are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt; Shared memory (SM), i.e. multiple processors shared a common central memory&lt;/li&gt;
+&lt;li&gt; Shared disk (SD), i.e. multiple processors each with private memory share a common collection of disks&lt;/li&gt;
+&lt;li&gt; Shared nothing (SN), i.e. neither memory nor peripheral storage is shared among processors&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;scylladb&quot;&gt;ScyllaDB&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ScyllaDB is the monstrously fast and scalable NoSQL database. Fully compatible with apache Cassandra and Amazon DynamoDB,&lt;/li&gt;
+  &lt;li&gt;ScyllaDB embraces a shared-nothing approach that increases throughput and storage capacity as much as 10X that of Cassandra.&lt;/li&gt;
+  &lt;li&gt;Comcast, Medium, Starbucks, Ola Cabs Adopted ScyllaDB to realize order-of-magnitude performance improvements and reduce hardware costs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;reference&quot;&gt;Reference&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.scylladb.com/glossary/shared-nothing-architecture/&quot;&gt;https://www.scylladb.com/glossary/shared-nothing-architecture/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description><description>&lt;blockquote&gt;
+  &lt;p&gt;Shared nothing architecture provides low latency, high bandwidth, as well as high availability.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description><pubDate>Mon, 29 Apr 2024 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/blog/shared-nothing-architecture/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/shared-nothing-architecture/</guid></item><item>
         <title>Distributed Consensus Algorithms</title>
         <description>&lt;blockquote&gt;
   &lt;p&gt;Consensus algorithms used in distributed systems to ensure that all
@@ -177,13 +212,11 @@ landscape.
   &lt;p&gt;Consensus algorithms used in distributed systems to ensure that all
 processes agree on a single value.&lt;/p&gt;
 &lt;/blockquote&gt;
-</description><pubDate>Thu, 01 Aug 2024 00:00:00 -0500</pubDate>
+</description><pubDate>Fri, 01 Mar 2024 00:00:00 -0600</pubDate>
         <link>http://localhost:4000/blog/consensus-algorithms/</link>
         <guid isPermaLink="true">http://localhost:4000/blog/consensus-algorithms/</guid></item><item>
         <title>Broadcasting Protocols</title>
-        <description>&lt;h3 id=&quot;broadcast-protocols&quot;&gt;Broadcast Protocols&lt;/h3&gt;
-
-&lt;p&gt;The popular message broadcasting techniques in a distributed system are the following:&lt;/p&gt;
+        <description>&lt;p&gt;The popular message broadcasting techniques in a distributed system are the following:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;point-to-point broadcast&lt;/li&gt;
@@ -266,13 +299,14 @@ generate a system-wide value [10].&lt;/p&gt;
 &lt;h4 id=&quot;gossip-protocol-performance&quot;&gt;Gossip Protocol Performance&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;The number of nodes that will receive the message from a particular node is known as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fanout&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;The count of gossip rounds required to spread a message across the entire cluster is known as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cycle&lt;/code&gt;
-Cycles necessary to spread a message across the cluster = O(log n) to the base of fanout, where n = total number of nodes&lt;/li&gt;
-  &lt;li&gt;Fanout 10&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Total Nodes 1000&lt;/p&gt;
+  &lt;li&gt;The count of gossip rounds required to spread a message across the entire cluster is known as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cycle&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Cycles necessary to spread a message across the cluster = O(log n) to the base of fanout, where n = total number of nodes
+    &lt;ul&gt;
+      &lt;li&gt;Fanout 10&lt;/li&gt;
+      &lt;li&gt;Total Nodes 1000&lt;/li&gt;
+      &lt;li&gt;Formula: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log(1000) with base 10 → 3 Cycles&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Formula: log(1000) with base 10 → 3 Cycles&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;gossip-protocol-use-cases&quot;&gt;Gossip Protocol Use Cases&lt;/h4&gt;
@@ -305,10 +339,91 @@ Cycles necessary to spread a message across the cluster = O(log n) to the base o
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://highscalability.com/gossip-protocol-explained/&quot;&gt;https://highscalability.com/gossip-protocol-explained/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><description>&lt;h3 id=&quot;broadcast-protocols&quot;&gt;Broadcast Protocols&lt;/h3&gt;
-</description><pubDate>Wed, 31 Jul 2024 00:00:00 -0500</pubDate>
+</description><description>&lt;p&gt;The popular message broadcasting techniques in a distributed system are the following:&lt;/p&gt;
+</description><pubDate>Sat, 10 Feb 2024 00:00:00 -0600</pubDate>
         <link>http://localhost:4000/blog/broadcast_protocols/</link>
         <guid isPermaLink="true">http://localhost:4000/blog/broadcast_protocols/</guid></item><item>
+        <title>Video Calling Apps System Design</title>
+        <description>&lt;p&gt;&lt;strong&gt;Table of content:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-one&quot;&gt;Functional Requirements&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-two&quot;&gt;Non Functional Requirements&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;V&lt;/span&gt;ideo Calling applications such as zoom/skype uses adaptive streaming to improve users realtime experience.
+
+
+&lt;a id=&quot;item-one&quot;&gt;&lt;/a&gt;
+&lt;h4&gt;&lt;a href=&quot;1&quot;&gt;&lt;/a&gt; Functional Requirements&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Video calling should support peer-to-peer and video conferences&lt;/li&gt;
+&lt;li&gt;System should support 300M video calls/day&lt;/li&gt;
+&lt;li&gt;System should support Adaptive streaming&lt;/li&gt;
+&lt;li&gt;System should adopt Scalable Video Coding&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;a id=&quot;item-two&quot;&gt;&lt;/a&gt;
+&lt;h4&gt;Non-Functional Requirements&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;System should be highly reliable and scalable&lt;/li&gt;
+&lt;li&gt;System should be highly available, loosing some frames is acceptable.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;a id=&quot;item-three&quot;&gt;&lt;/a&gt;
+&lt;h4&gt;&lt;a href=&quot;3&quot;&gt;&lt;/a&gt; Capacity Estimation&lt;/h4&gt;
+
+&lt;h6&gt; Throughput &lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;Throughput : 300M/10^5= 3000 Calls/sec.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;Storage&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;Video recording stored in their local machines&lt;/li&gt; 
+&lt;/ul&gt;
+
+
+&lt;a id=&quot;item-four&quot;&gt;&lt;/a&gt;
+&lt;h4&gt;High Level System Design &lt;/h4&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/img/zoom.png&quot; alt=&quot;&quot; /&gt; 
+	&lt;figcaption&gt;Video Calling High Level System Design&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+
+&lt;h5&gt;IMPORTANT NOTES&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Adjusting resolution based on device type and bandwidth is called adaptive streaming.&lt;/li&gt;
+&lt;li&gt;Number of pixels in a video frame is called resolution&lt;/li&gt;
+&lt;li&gt; Sending many video streams for different resolutions isn’t scalable&lt;/li&gt;
+&lt;li&gt; System should use Scalable Video Coding (SVC) to stream video.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;p&gt;
+&lt;a id=&quot;item-five&quot;&gt;&lt;/a&gt;
+&lt;h4&gt; Algorithms &lt;/h4&gt;
+
+TBD
+&lt;/p&gt;&lt;/p&gt;
+</description><description>&lt;p&gt;&lt;strong&gt;Table of content:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-one&quot;&gt;Functional Requirements&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-two&quot;&gt;Non Functional Requirements&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Sun, 31 Dec 2023 00:00:00 -0600</pubDate>
+        <link>http://localhost:4000/blog/video-calling-system-design/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/video-calling-system-design/</guid></item><item>
         <title>Video Streaming System Design</title>
         <description>&lt;p&gt;&lt;strong&gt;Table of content:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -419,7 +534,7 @@ Below algorithms helps to find top K movie recommendation using Heap DataStructu
   &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><pubDate>Mon, 01 Jul 2024 00:00:00 -0500</pubDate>
+</description><pubDate>Sat, 01 Jul 2023 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/blog/video-streaming/</link>
         <guid isPermaLink="true">http://localhost:4000/blog/video-streaming/</guid></item><item>
         <title>Web Crawler System Design</title>
@@ -470,7 +585,7 @@ Below algorithms helps to find top K movie recommendation using Heap DataStructu
   &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><pubDate>Wed, 12 Jun 2024 00:00:00 -0500</pubDate>
+</description><pubDate>Mon, 12 Jun 2023 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/blog/web-crawler/</link>
         <guid isPermaLink="true">http://localhost:4000/blog/web-crawler/</guid></item><item>
         <title>URL Shortener System Design</title>
@@ -592,7 +707,7 @@ Below algorithms helps to find top K movie recommendation using Heap DataStructu
   &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><pubDate>Thu, 30 May 2024 00:00:00 -0500</pubDate>
+</description><pubDate>Tue, 30 May 2023 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/blog/url-shortener/</link>
         <guid isPermaLink="true">http://localhost:4000/blog/url-shortener/</guid></item><item>
         <title>File Storage System Design</title>
@@ -661,7 +776,7 @@ These servers are maintained by cloud storage providers and made available to us
   &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><pubDate>Mon, 01 Apr 2024 00:00:00 -0500</pubDate>
+</description><pubDate>Sat, 01 Apr 2023 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/blog/file-storage/</link>
         <guid isPermaLink="true">http://localhost:4000/blog/file-storage/</guid></item><item>
         <title>Messenger App System Design</title>
@@ -674,17 +789,16 @@ These servers are maintained by cloud storage providers and made available to us
   &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;Y&lt;/span&gt;ouTube or Netflix are popular video streaming services.
-These services allow users to upload / stream /share videos.
+&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;M&lt;/span&gt;essaging applications such as WhatsApp/Facebook Messengers provide instant messaging services to users. 
 
 
 &lt;a id=&quot;item-one&quot;&gt;&lt;/a&gt;
 &lt;h4&gt;&lt;a href=&quot;1&quot;&gt;&lt;/a&gt; Functional Requirements&lt;/h4&gt;
 
 &lt;ol&gt;
-&lt;li&gt;User should be able to upload and stream videos&lt;/li&gt; 
-&lt;li&gt;System should support different video formats&lt;/li&gt; 
-&lt;li&gt;System should recommend videos to viewers&lt;/li&gt; 
+&lt;li&gt;System should be able to support one-to-one/group messaging&lt;/li&gt; 
+&lt;li&gt;Users should be able to see live status&lt;/li&gt; 
+&lt;li&gt;System should support file sharing(on receive deletion)&lt;/li&gt; 
 &lt;/ol&gt;
 
 &lt;a id=&quot;item-two&quot;&gt;&lt;/a&gt;
@@ -700,13 +814,13 @@ These services allow users to upload / stream /share videos.
 
 &lt;h6&gt; Throughput &lt;/h6&gt;
 &lt;ul&gt;
-&lt;li&gt;DAU : 5M users and each user watch 5 video/day&lt;/li&gt; 
-&lt;li&gt;25Million views/day-&amp;gt;  250 Views/sec(RPS)&lt;/li&gt; 
-&lt;li&gt;10% of users upload-&amp;gt;  5 videos/sec&lt;/li&gt; 
+&lt;li&gt;DAU : 50M users and each user watch 10 messages/day&lt;/li&gt; 
+&lt;li&gt; 500 million messages/day -&amp;gt; 5000 RPS&lt;/li&gt; 
+&lt;li&gt;10% of users upload files-&amp;gt;  50 million files/day&lt;/li&gt; 
 &lt;/ul&gt;
 &lt;h6&gt;Storage&lt;/h6&gt;
 &lt;ul&gt;
-&lt;li&gt;5M X 500MB= 250 TB/day&lt;/li&gt; 
+&lt;li&gt;50 M X100 = 5GB/day&lt;/li&gt; 
 &lt;/ul&gt;
 
 
@@ -720,51 +834,24 @@ These services allow users to upload / stream /share videos.
 
 
 &lt;ul&gt;
-&lt;li&gt;  User uploads videos into object storage and updates medata into database(Cassandra) &lt;/li&gt;
-&lt;li&gt;  Transcoder service will read from queue process them asynchronously and encodes into different format.&lt;/li&gt;
-&lt;li&gt;  Different video formats make it available to CDN to improve view experience.&lt;/li&gt;
-&lt;li&gt;  Video recommendation service uses two-tower approach to generation video recommendations.&lt;/li&gt;
-&lt;li&gt;  Client stream videos on their devices using different streaming protocols such as Apple HTTP Live/MPEG.&lt;/li&gt;
+&lt;li&gt; User send messages to user/group which is handled by chat server&lt;/li&gt;
+&lt;li&gt; Chat server extracts files (if any) upload into media storage.&lt;/li&gt;
+&lt;li&gt; Event triggered message queue and notification send to user/group via notification server&lt;/li&gt;
+&lt;li&gt; Presence server uses heartbeat protocol to check whether user active/not &lt;/li&gt;
+&lt;li&gt; Communication between chatServer and user happens through WebSocket(Duplex)/ SSE/Long Polling&lt;/li&gt;
 &lt;/ul&gt;
 
 
 &lt;p&gt;
 &lt;a id=&quot;item-five&quot;&gt;&lt;/a&gt;
 &lt;h4&gt; Algorithms &lt;/h4&gt;
-&lt;p&gt;
-Below algorithms helps to find top K movie recommendation using Heap DataStructure.
-&lt;/p&gt;
 
-&lt;span style=&quot;font-size:0.7em;width: 60%&quot;&gt;
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;heapq&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nextNode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nextNode&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;topKMovies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arrays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arrays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;heappush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;topMovies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;nodeVal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heappop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;topMovies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nodeVal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;heappush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;topMovies&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;n1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;n2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;array&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;topKMovies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;/span&gt;
+&lt;ul&gt;
+&lt;li&gt; WebSockets&lt;/li&gt;
+&lt;li&gt; Server Sent Events&lt;/li&gt;
+&lt;li&gt; Long Polling&lt;/li&gt;
+&lt;li&gt; HeartBeat Protocols&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/p&gt;&lt;/p&gt;
 </description><description>&lt;p&gt;&lt;strong&gt;Table of content:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -774,120 +861,90 @@ Below algorithms helps to find top K movie recommendation using Heap DataStructu
   &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><pubDate>Sat, 10 Feb 2024 00:00:00 -0600</pubDate>
+</description><pubDate>Fri, 10 Feb 2023 00:00:00 -0600</pubDate>
         <link>http://localhost:4000/blog/messenger/</link>
         <guid isPermaLink="true">http://localhost:4000/blog/messenger/</guid></item><item>
-        <title>Video Calling Apps System Design</title>
-        <description>&lt;p&gt;&lt;strong&gt;Table of content:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-one&quot;&gt;Functional Requirements&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-two&quot;&gt;Non Functional Requirements&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+        <title>Redis GeoHashing</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Redis geospatial indexes let you store coordinates and search for them. 
+This data structure is useful for finding nearby points within a given radius or bounding box.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;Y&lt;/span&gt;ouTube or Netflix are popular video streaming services.
-These services allow users to upload / stream /share videos.
+&lt;h3 id=&quot;geo-spatial-indexes&quot;&gt;Geo Spatial Indexes&lt;/h3&gt;
 
-
-&lt;a id=&quot;item-one&quot;&gt;&lt;/a&gt;
-&lt;h4&gt;&lt;a href=&quot;1&quot;&gt;&lt;/a&gt; Functional Requirements&lt;/h4&gt;
-
-&lt;ol&gt;
-&lt;li&gt;User should be able to upload and stream videos&lt;/li&gt; 
-&lt;li&gt;System should support different video formats&lt;/li&gt; 
-&lt;li&gt;System should recommend videos to viewers&lt;/li&gt; 
-&lt;/ol&gt;
-
-&lt;a id=&quot;item-two&quot;&gt;&lt;/a&gt;
-&lt;h4&gt;Non-Functional Requirements&lt;/h4&gt;
-
-&lt;ol&gt;
-&lt;li&gt;System should highly reliable/scalable&lt;/li&gt; 
-&lt;li&gt;System should be highly available with eventual consistency&lt;/li&gt; 
-&lt;/ol&gt;
-
-&lt;a id=&quot;item-three&quot;&gt;&lt;/a&gt;
-&lt;h4&gt;&lt;a href=&quot;3&quot;&gt;&lt;/a&gt; Capacity Estimation&lt;/h4&gt;
-
-&lt;h6&gt; Throughput &lt;/h6&gt;
-&lt;ul&gt;
-&lt;li&gt;DAU : 5M users and each user watch 5 video/day&lt;/li&gt; 
-&lt;li&gt;25Million views/day-&amp;gt;  250 Views/sec(RPS)&lt;/li&gt; 
-&lt;li&gt;10% of users upload-&amp;gt;  5 videos/sec&lt;/li&gt; 
-&lt;/ul&gt;
-&lt;h6&gt;Storage&lt;/h6&gt;
-&lt;ul&gt;
-&lt;li&gt;5M X 500MB= 250 TB/day&lt;/li&gt; 
-&lt;/ul&gt;
-
-
-&lt;a id=&quot;item-four&quot;&gt;&lt;/a&gt;
-&lt;h4&gt;High Level System Design &lt;/h4&gt;
-
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/img/zoom.png&quot; alt=&quot;&quot; /&gt; 
-	&lt;figcaption&gt;Video Calling High Level System Design&lt;/figcaption&gt;
-&lt;/figure&gt;
-
+&lt;p&gt;There are two approaches for Geo Spatial indexing&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;  User uploads videos into object storage and updates medata into database(Cassandra) &lt;/li&gt;
-&lt;li&gt;  Transcoder service will read from queue process them asynchronously and encodes into different format.&lt;/li&gt;
-&lt;li&gt;  Different video formats make it available to CDN to improve view experience.&lt;/li&gt;
-&lt;li&gt;  Video recommendation service uses two-tower approach to generation video recommendations.&lt;/li&gt;
-&lt;li&gt;  Client stream videos on their devices using different streaming protocols such as Apple HTTP Live/MPEG.&lt;/li&gt;
+  &lt;li&gt;Hash based Indexing - divide world into group with unique hash value
+    &lt;ul&gt;
+      &lt;li&gt;Even Grid&lt;/li&gt;
+      &lt;li&gt;GeoHash&lt;/li&gt;
+      &lt;li&gt;Cartesian Tiers&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Tree based Indexing
+    &lt;ul&gt;
+      &lt;li&gt;QuadTree&lt;/li&gt;
+      &lt;li&gt;Google S2&lt;/li&gt;
+      &lt;li&gt;RTree&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h4 id=&quot;how-redis-geohashing-works&quot;&gt;How Redis GeoHashing Works&lt;/h4&gt;
 
-&lt;p&gt;
-&lt;a id=&quot;item-five&quot;&gt;&lt;/a&gt;
-&lt;h4&gt; Algorithms &lt;/h4&gt;
-&lt;p&gt;
-Below algorithms helps to find top K movie recommendation using Heap DataStructure.
-&lt;/p&gt;
+&lt;p&gt;Redis support below command to add and search within given radius. These algorithms can be used in Proximity services such as Yelp/Uber to identify users within given radius.&lt;/p&gt;
 
-&lt;span style=&quot;font-size:0.7em;width: 60%&quot;&gt;
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;heapq&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nextNode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nextNode&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;topKMovies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arrays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arrays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;heappush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;topMovies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;nodeVal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heappop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;topMovies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nodeVal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;heappush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;topMovies&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;n1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;n2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;array&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;topKMovies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;/span&gt;
-&lt;/p&gt;&lt;/p&gt;
-</description><description>&lt;p&gt;&lt;strong&gt;Table of content:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-one&quot;&gt;Functional Requirements&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-two&quot;&gt;Non Functional Requirements&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-three&quot;&gt;Capacity Estimation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-four&quot;&gt;High Level System Design&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#item-five&quot;&gt;Algorithms&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;GEOADD adds a location to a given geospatial index (note that longitude comes before latitude with this command).&lt;/li&gt;
+  &lt;li&gt;GEOSEARCH returns locations with a given radius or a bounding box.&lt;/li&gt;
 &lt;/ul&gt;
-</description><pubDate>Wed, 31 Jan 2024 00:00:00 -0600</pubDate>
-        <link>http://localhost:4000/blog/video-calling-system-design/</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/video-calling-system-design/</guid></item></channel>
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; redis-cli
+127.0.0.1:6379&amp;gt;
+
+&lt;span class=&quot;c&quot;&gt;# adding users&lt;/span&gt;
+127.0.0.1:6379&amp;gt; GEOADD user:dasher &lt;span class=&quot;nt&quot;&gt;-122&lt;/span&gt;.27652 37.805186 dasher1
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;integer&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1
+127.0.0.1:6379&amp;gt; GEOADD user:dasher &lt;span class=&quot;nt&quot;&gt;-122&lt;/span&gt;.34 37.805183 dasher2
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;integer&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1
+
+&lt;span class=&quot;c&quot;&gt;#searching&lt;/span&gt;
+127.0.0.1:6379&amp;gt; GEOSEARCH user:dasher FROMLONLAT &lt;span class=&quot;nt&quot;&gt;-122&lt;/span&gt;.2612767 37.7936847 BYRADIUS 10 KM WITHDIST
+1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;dasher2&quot;&lt;/span&gt;
+   2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;7.0357&quot;&lt;/span&gt;
+2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;dasher1&quot;&lt;/span&gt;
+   2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.8523&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# unique hash&lt;/span&gt;
+GEOHASH user:dasher dasher1
+1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;9q9p1d0znt0&quot;&lt;/span&gt;
+
+GEOADD key &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;NX | XX] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;CH] longitude latitude member &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;longitude
+  latitude member ...]
+
+GEOADD Sicily 13.361389 38.115556 &lt;span class=&quot;s2&quot;&gt;&quot;Palermo&quot;&lt;/span&gt; 15.087269 37.502669 &lt;span class=&quot;s2&quot;&gt;&quot;Catania&quot;&lt;/span&gt;
+
+GEODIST Sicily Palermo Catania
+
+&lt;span class=&quot;c&quot;&gt;# GEORADIUS&lt;/span&gt;
+127.0.0.1:6379&amp;gt; GEORADIUS Sicily 15 37 200 km
+1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Palermo&quot;&lt;/span&gt;
+2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Catania&quot;&lt;/span&gt;
+3&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Cataniaa&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;references&quot;&gt;References&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.&quot;&gt;https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description><description>&lt;blockquote&gt;
+  &lt;p&gt;Redis geospatial indexes let you store coordinates and search for them. 
+This data structure is useful for finding nearby points within a given radius or bounding box.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description><pubDate>Sun, 22 Jan 2023 00:00:00 -0600</pubDate>
+        <link>http://localhost:4000/blog/redis-geohashing/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/redis-geohashing/</guid></item></channel>
 </rss>

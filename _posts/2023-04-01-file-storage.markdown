@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "File Storage System Design"
-date:   2024-04-01
+date:   2023-04-01
 description: Distributed file storage services such as Dropbox/Google Drive System Design
 ---
 

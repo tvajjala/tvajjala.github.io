@@ -7,22 +7,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
-	<title>Video Calling Apps System Design</title>
+	<title>Shared Nothing Architecture</title>
 
 	<!-- Open Graph Meta -->
-	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Video Calling Apps System Design" property="og:title" /><meta content="article" property="og:type" /><meta content="Online video calling systems like Zoom/Skype" property="og:description" /><meta content="http://localhost:4000/blog/video-calling-system-design/" property="og:url" /><meta
-		content="2023-12-31T00:00:00-06:00"
+	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Shared Nothing Architecture" property="og:title" /><meta content="article" property="og:type" /><meta content="Shared nothing architecture provides low latency, high bandwidth, as well as high availability." property="og:description" /><meta content="http://localhost:4000/blog/shared-nothing-architecture/" property="og:url" /><meta
+		content="2024-04-29T00:00:00-05:00"
 		property="article:published_time"
 	/>
 	<meta content="http://localhost:4000/about/" property="article:author" /><meta
-		content="http://localhost:4000/assets/img/direct-video-calling.png"
+		content="http://localhost:4000/assets/img/touring.jpg"
 		property="og:image"
 	/><!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@" />
-	<meta name="twitter:creator" content="@" /><meta name="twitter:title" content="Video Calling Apps System Design" /><meta name="twitter:url" content="http://localhost:4000/blog/video-calling-system-design/" /><meta name="twitter:description" content="Online video calling systems like Zoom/Skype" /><meta
+	<meta name="twitter:creator" content="@" /><meta name="twitter:title" content="Shared Nothing Architecture" /><meta name="twitter:url" content="http://localhost:4000/blog/shared-nothing-architecture/" /><meta name="twitter:description" content="Shared nothing architecture provides low latency, high bandwidth, as well as high availability." /><meta
 		name="twitter:image:src"
-		content="http://localhost:4000/assets/img/direct-video-calling.png"
+		content="http://localhost:4000/assets/img/touring.jpg"
 	/><!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href=""/>
 
@@ -36,7 +36,7 @@
 	<!-- Canonical URL -->
 	<link
 		rel="canonical"
-		href="http://localhost:4000/blog/video-calling-system-design/"
+		href="http://localhost:4000/blog/shared-nothing-architecture/"
 	/><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -66,87 +66,44 @@ ga('send', 'pageview');
  </div><!-- end .header -->
 <div class="content">
       <div class="container">
-         <article class="post"><div class="featuredImage">
-        <img src="/assets/img/direct-video-calling.png" alt="" />
-      </div><header>
-    <h3 class="postTitle">Video Calling Apps System Design</h3>
-    <p class="meta">December 31, 2023 | <span class="time">1</span> Minute Read</p>
+         <article class="post"><header>
+    <h3 class="postTitle">Shared Nothing Architecture</h3>
+    <p class="meta">April 29, 2024 | <span class="time">1</span> Minute Read</p>
   </header>
 
-  <p><strong>Table of content:</strong></p>
+  <blockquote>
+  <p>Shared nothing architecture provides low latency, high bandwidth, as well as high availability.</p>
+</blockquote>
+
+<h4 id="popular-architectures-for-high-transaction-rate-systems">Popular Architectures for high transaction rate systems</h4>
+
+<p>The three most commonly mentioned architectures for multiprocessor high transaction rate systems are:</p>
+
 <ul>
-  <li><a href="#item-one">Functional Requirements</a></li>
-  <li><a href="#item-two">Non Functional Requirements</a></li>
-  <li><a href="#item-three">Capacity Estimation</a></li>
-  <li><a href="#item-four">High Level System Design</a></li>
-  <li><a href="#item-five">Algorithms</a></li>
+<li> Shared memory (SM), i.e. multiple processors shared a common central memory</li>
+<li> Shared disk (SD), i.e. multiple processors each with private memory share a common collection of disks</li>
+<li> Shared nothing (SN), i.e. neither memory nor peripheral storage is shared among processors</li>
 </ul>
 
-<p class="intro"><span class="dropcap">V</span>ideo Calling applications such as zoom/skype uses adaptive streaming to improve users realtime experience.
+<h4 id="scylladb">ScyllaDB</h4>
 
-
-<a id="item-one"></a>
-<h4><a href="1"></a> Functional Requirements</h4>
-
-<ol>
-<li>Video calling should support peer-to-peer and video conferences</li>
-<li>System should support 300M video calls/day</li>
-<li>System should support Adaptive streaming</li>
-<li>System should adopt Scalable Video Coding</li>
-</ol>
-
-<a id="item-two"></a>
-<h4>Non-Functional Requirements</h4>
-
-<ol>
-<li>System should be highly reliable and scalable</li>
-<li>System should be highly available, loosing some frames is acceptable.</li>
-</ol>
-
-<a id="item-three"></a>
-<h4><a href="3"></a> Capacity Estimation</h4>
-
-<h6> Throughput </h6>
 <ul>
-<li>Throughput : 300M/10^5= 3000 Calls/sec.</li>
-</ul>
-<h6>Storage</h6>
-<ul>
-<li>Video recording stored in their local machines</li> 
+  <li>ScyllaDB is the monstrously fast and scalable NoSQL database. Fully compatible with apache Cassandra and Amazon DynamoDB,</li>
+  <li>ScyllaDB embraces a shared-nothing approach that increases throughput and storage capacity as much as 10X that of Cassandra.</li>
+  <li>Comcast, Medium, Starbucks, Ola Cabs Adopted ScyllaDB to realize order-of-magnitude performance improvements and reduce hardware costs</li>
 </ul>
 
+<h4 id="reference">Reference</h4>
 
-<a id="item-four"></a>
-<h4>High Level System Design </h4>
-
-<figure>
-	<img src="/assets/img/zoom.png" alt="" /> 
-	<figcaption>Video Calling High Level System Design</figcaption>
-</figure>
-
-
-
-<h5>IMPORTANT NOTES</h5>
 <ul>
-<li>Adjusting resolution based on device type and bandwidth is called adaptive streaming.</li>
-<li>Number of pixels in a video frame is called resolution</li>
-<li> Sending many video streams for different resolutions isn’t scalable</li>
-<li> System should use Scalable Video Coding (SVC) to stream video.</li>
+  <li><a href="https://www.scylladb.com/glossary/shared-nothing-architecture/">https://www.scylladb.com/glossary/shared-nothing-architecture/</a></li>
 </ul>
 
-
-
-<p>
-<a id="item-five"></a>
-<h4> Algorithms </h4>
-
-TBD
-</p></p>
 
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev" href="/blog/video-streaming/"><span>&laquo;&nbsp;Video Streaming System Design</span></a><a class="next" href="/blog/broadcast_protocols/"><span>Broadcasting Protocols&nbsp;&raquo;</span></a></footer>
+  <footer class="postNav clearfix"><a class="prev" href="/blog/consensus-algorithms/"><span>&laquo;&nbsp;Distributed Consensus Algorithms</span></a></footer>
 </article>
 
 <!---->

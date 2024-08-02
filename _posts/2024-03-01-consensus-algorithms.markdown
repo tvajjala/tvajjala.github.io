@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Distributed Consensus Algorithms"
-date:   2024-08-01
-description: Popular distributed consensus algorithms such as Paxos, Raft and ZAB 
+date:   2024-03-01
+description: Paxos, Raft and ZAB are popular distributed consensus algorithms 
 ---
 > Consensus algorithms used in distributed systems to ensure that all
 > processes agree on a single value.

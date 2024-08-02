@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "URL Shortener System Design"
-date:   2024-05-30
+date:   2023-05-30
 description: URL shortening is used to create shorter aliases for long URLs.
 ---
 

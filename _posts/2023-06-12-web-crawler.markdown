@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Web Crawler System Design"
-date:   2024-06-12
+date:   2023-06-12
 description: WebCrawlers are used in search engine optimization, mirror site creation, identify copyright infringements.
 ---
 
