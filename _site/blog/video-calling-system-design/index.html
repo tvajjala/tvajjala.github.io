@@ -7,11 +7,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
-	<title>Subnet Calculator</title>
+	<title>Video Calling Apps System Design</title>
 
 	<!-- Open Graph Meta -->
-	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Subnet Calculator" property="og:title" /><meta content="article" property="og:type" /><meta content="Subnet CIDR range Calculator Algorithm" property="og:description" /><meta content="http://localhost:4000/blog/subnet-calculator/" property="og:url" /><meta
-		content="2024-01-15T00:00:00-06:00"
+	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Video Calling Apps System Design" property="og:title" /><meta content="article" property="og:type" /><meta content="Online video calling systems like Zoom/Skype" property="og:description" /><meta content="http://localhost:4000/blog/video-calling-system-design/" property="og:url" /><meta
+		content="2024-01-31T00:00:00-06:00"
 		property="article:published_time"
 	/>
 	<meta content="http://localhost:4000/about/" property="article:author" /><meta
@@ -20,7 +20,7 @@
 	/><!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@thiru_vajjala" />
-	<meta name="twitter:creator" content="@thiru_vajjala" /><meta name="twitter:title" content="Subnet Calculator" /><meta name="twitter:url" content="http://localhost:4000/blog/subnet-calculator/" /><meta name="twitter:description" content="Subnet CIDR range Calculator Algorithm" /><meta
+	<meta name="twitter:creator" content="@thiru_vajjala" /><meta name="twitter:title" content="Video Calling Apps System Design" /><meta name="twitter:url" content="http://localhost:4000/blog/video-calling-system-design/" /><meta name="twitter:description" content="Online video calling systems like Zoom/Skype" /><meta
 		name="twitter:image:src"
 		content="http://localhost:4000/assets/img/touring.jpg"
 	/><!-- Favicon -->
@@ -36,7 +36,7 @@
 	<!-- Canonical URL -->
 	<link
 		rel="canonical"
-		href="http://localhost:4000/blog/subnet-calculator/"
+		href="http://localhost:4000/blog/video-calling-system-design/"
 	/><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -66,104 +66,119 @@ ga('send', 'pageview');
  </div><!-- end .header -->
 <div class="content">
       <div class="container">
-         <article class="post"><header>
-    <h3 class="postTitle">Subnet Calculator</h3>
-    <p class="meta">January 15, 2024 | <span class="time">3</span> Minute Read</p>
+         <article class="post"><div class="featuredImage">
+        <img src="/assets/img/touring.jpg" alt="" />
+      </div><header>
+    <h3 class="postTitle">Video Calling Apps System Design</h3>
+    <p class="meta">January 31, 2024 | <span class="time">3</span> Minute Read</p>
   </header>
 
-  <p class="intro"><span class="dropcap">C</span>urabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Aenean lacinia bibendum nulla sed consectetur.</p>
-
-<h1 id="heading-1">Heading 1</h1>
-
-<h2 id="heading-2">Heading 2</h2>
-
-<h3 id="heading-3">Heading 3</h3>
-
-<h4 id="heading-4">Heading 4</h4>
-
-<h5 id="heading-5">Heading 5</h5>
-
-<h6 id="heading-6">Heading 6</h6>
-
-<blockquote>Aenean lacinia bibendum nulla sed consectetur. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum. Nulla vitae elit libero, a pharetra augue. Curabitur blandit tempus porttitor. Donec sed odio dui. Cras mattis consectetur purus sit amet fermentum.</blockquote>
-
-<p>Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-
-<h2 id="unordered-list">Unordered List</h2>
+  <p><strong>Table of content:</strong></p>
 <ul>
-  <li>List Item</li>
-  <li>Longer List Item
-    <ul>
-      <li>Nested List Item</li>
-      <li>Nested Item</li>
-    </ul>
-  </li>
-  <li>List Item</li>
+  <li><a href="#item-one">Functional Requirements</a></li>
+  <li><a href="#item-two">Non Functional Requirements</a></li>
+  <li><a href="#item-three">Capacity Estimation</a></li>
+  <li><a href="#item-four">High Level System Design</a></li>
+  <li><a href="#item-five">Algorithms</a></li>
 </ul>
 
-<h2 id="ordered-list">Ordered List</h2>
+<p class="intro"><span class="dropcap">Y</span>ouTube or Netflix are popular video streaming services.
+These services allow users to upload / stream /share videos.
+
+
+<a id="item-one"></a>
+<h4><a href="1"></a> Functional Requirements</h4>
+
 <ol>
-  <li>List Item</li>
-  <li>Longer List Item
-    <ol>
-      <li>Nested OL Item</li>
-      <li>Another Nested Item</li>
-    </ol>
-  </li>
-  <li>List Item</li>
+<li>User should be able to upload and stream videos</li> 
+<li>System should support different video formats</li> 
+<li>System should recommend videos to viewers</li> 
 </ol>
 
-<h2 id="definition-list">Definition List</h2>
-<dl>
-  <dt>Coffee</dt>
-  <dd>Black hot drink</dd>
-  <dt>Milk</dt>
-  <dd>White cold drink</dd>
-</dl>
+<a id="item-two"></a>
+<h4>Non-Functional Requirements</h4>
 
-<p>Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus mollis interdum. Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+<ol>
+<li>System should highly reliable/scalable</li> 
+<li>System should be highly available with eventual consistency</li> 
+</ol>
 
-<h2 id="table">Table</h2>
+<a id="item-three"></a>
+<h4><a href="3"></a> Capacity Estimation</h4>
 
-<table>
-  <thead>
-    <tr>
-      <th>Syntax</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Header</td>
-      <td>Title</td>
-    </tr>
-    <tr>
-      <td>Paragraph</td>
-      <td>Text</td>
-    </tr>
-    <tr>
-      <td>Header</td>
-      <td>Title</td>
-    </tr>
-    <tr>
-      <td>Paragraph</td>
-      <td>Text</td>
-    </tr>
-  </tbody>
-</table>
+<h6> Throughput </h6>
+<ul>
+<li>DAU : 5M users and each user watch 5 video/day</li> 
+<li>25Million views/day-&gt;  250 Views/sec(RPS)</li> 
+<li>10% of users upload-&gt;  5 videos/sec</li> 
+</ul>
+<h6>Storage</h6>
+<ul>
+<li>5M X 500MB= 250 TB/day</li> 
+</ul>
 
-<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Curabitur blandit tempus porttitor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
 
-<p>Maecenas faucibus mollis interdum. Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Etiam porta sem malesuada magna mollis euismod. Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum.</p>
+<a id="item-four"></a>
+<h4>High Level System Design </h4>
 
-<p>Sed posuere consectetur est at lobortis. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+<figure>
+	<img src="/assets/img/zoom.png" alt="" /> 
+	<figcaption>Video Calling High Level System Design</figcaption>
+</figure>
 
-<p>Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Maecenas faucibus mollis interdum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+<ul>
+<li>  User uploads videos into object storage and updates medata into database(Cassandra) </li>
+<li>  Transcoder service will read from queue process them asynchronously and encodes into different format.</li>
+<li>  Different video formats make it available to CDN to improve view experience.</li>
+<li>  Video recommendation service uses two-tower approach to generation video recommendations.</li>
+<li>  Client stream videos on their devices using different streaming protocols such as Apple HTTP Live/MPEG.</li>
+</ul>
+
+
+<p>
+<a id="item-five"></a>
+<h4> Algorithms </h4>
+<p>
+Below algorithms helps to find top K movie recommendation using Heap DataStructure.
+</p>
+
+<span style="font-size:0.7em;width: 60%">
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">ListNode</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nextNode</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="bp">self</span><span class="p">.</span><span class="n">val</span><span class="o">=</span> <span class="n">val</span>
+<span class="bp">self</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">nextNode</span>
+
+
+<span class="k">def</span> <span class="nf">topKMovies</span><span class="p">(</span><span class="n">arrays</span><span class="p">):</span>
+<span class="n">heap</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">head</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+<span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">head</span><span class="p">))</span>
+
+    <span class="n">topMovies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">heap</span><span class="p">:</span>
+        <span class="n">nodeVal</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+        <span class="n">topMovies</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">nodeVal</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">:</span>
+            <span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">topMovies</span>
+
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">"__main__"</span><span class="p">:</span>
+
+    <span class="n">n1</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="bp">None</span><span class="p">)))</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="bp">None</span><span class="p">)))</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">topKMovies</span><span class="p">(</span><span class="n">array</span><span class="p">))</span></code></pre></figure>
+</span>
+</p></p>
 
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="next image" href="/blog/skype-system-design/"><span>Video Calling Apps System Design&nbsp;&raquo;</span><img src="/assets/img/touring.jpg" alt=""></a></footer>
+  <footer class="postNav clearfix"><a class="next" href="/blog/messenger/"><span>Messenger App System Design&nbsp;&raquo;</span></a></footer>
 </article>
 
 <!---->

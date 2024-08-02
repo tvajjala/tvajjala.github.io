@@ -68,25 +68,115 @@ ga('send', 'pageview');
       <div class="container">
          <article class="post"><header>
     <h3 class="postTitle">Messenger App System Design</h3>
-    <p class="meta">February 10, 2024 | <span class="time">2</span> Minute Read</p>
+    <p class="meta">February 10, 2024 | <span class="time">3</span> Minute Read</p>
   </header>
 
-  <p class="intro"><span class="dropcap">L</span>orem ipsum thor smash liege-bastogne-liege landbouwkrediet ombregt krabbe, rouleur derby is for lovers bonk giro gilbert bidon. Driedaagse de panne-koksijde monte paschi eroica, nevele gimondi berendries off the back cassette tenbosse.</p>
+  <p><strong>Table of content:</strong></p>
+<ul>
+  <li><a href="#item-one">Functional Requirements</a></li>
+  <li><a href="#item-two">Non Functional Requirements</a></li>
+  <li><a href="#item-three">Capacity Estimation</a></li>
+  <li><a href="#item-four">High Level System Design</a></li>
+  <li><a href="#item-five">Algorithms</a></li>
+</ul>
 
-<p>Bahamontes lanterne rouge normandie belgium. Fred paris-nice arrivere, for omnium commissaire ronde van vlaanderen horizontally stiff but vertically compliant muur, valkenberg jens paris-roubaix. Meyrueis belleville cavendish bianchi, rochefort echelon in soigneur ten dam omloop het volk, bettini aerts! Tour de mont aigoual cat among the pigeons rekelberg omloop het nieuwsblad paris-nice, dwars door vlaanderen coppi the colnago knockteberg anduze.</p>
+<p class="intro"><span class="dropcap">Y</span>ouTube or Netflix are popular video streaming services.
+These services allow users to upload / stream /share videos.
 
-<p>Kaperij lanterne rouge musette rund um koln bruges thor smash, geraardsbergen riis petacchi molteni pedaling squares. Virenque vande velde, valkenberg gutter pantani parcours gaul domestique, tilford campagnolo around madone. Bruyneel criterium ritte, gorgeous george the trousselier feed zone bruges nokere koerse, parcours gilbert garin? Anquetil valkenberg bettini cat among the pigeons.</p>
 
-<p>Campagnolo the hors delai de wolf as the toto turns venga venga venga, sanchez nys. Pantani hell of the north oude kwaremont nitto koppenberg, tiegemberg van steenbergen lombardie flamme rouge lemond e3 prijs vlaanderen.</p>
+<a id="item-one"></a>
+<h4><a href="1"></a> Functional Requirements</h4>
 
-<p>Planckaert berg ter stene freire gorgeous george in rouleur derby, vaughters fabianese omloop het volk rouleur play rouleur derby. Bottechia petacchi, milan-san remo van summeren off the back cutters the cassette.</p>
+<ol>
+<li>User should be able to upload and stream videos</li> 
+<li>System should support different video formats</li> 
+<li>System should recommend videos to viewers</li> 
+</ol>
 
-<p>Nyvelocity pyrenees vande velde merckx. La fleche wallonne fixie pau, with muur hors categorie boonen aerts operacion puerto, topsport vlaanderen pereiro randonneur. This greek text is produced by rouleur derby, almost certainly the best fantasy cycling game in the world snob trousselier col du galibier, flanders venga venga venga suitcase of courage cutters kolobnev molenberg.</p>
+<a id="item-two"></a>
+<h4>Non-Functional Requirements</h4>
+
+<ol>
+<li>System should highly reliable/scalable</li> 
+<li>System should be highly available with eventual consistency</li> 
+</ol>
+
+<a id="item-three"></a>
+<h4><a href="3"></a> Capacity Estimation</h4>
+
+<h6> Throughput </h6>
+<ul>
+<li>DAU : 5M users and each user watch 5 video/day</li> 
+<li>25Million views/day-&gt;  250 Views/sec(RPS)</li> 
+<li>10% of users upload-&gt;  5 videos/sec</li> 
+</ul>
+<h6>Storage</h6>
+<ul>
+<li>5M X 500MB= 250 TB/day</li> 
+</ul>
+
+
+<a id="item-four"></a>
+<h4>High Level System Design </h4>
+
+<figure>
+	<img src="/assets/img/whatsApp.png" alt="" /> 
+	<figcaption>WhatsApp High Level System Design</figcaption>
+</figure>
+
+
+<ul>
+<li>  User uploads videos into object storage and updates medata into database(Cassandra) </li>
+<li>  Transcoder service will read from queue process them asynchronously and encodes into different format.</li>
+<li>  Different video formats make it available to CDN to improve view experience.</li>
+<li>  Video recommendation service uses two-tower approach to generation video recommendations.</li>
+<li>  Client stream videos on their devices using different streaming protocols such as Apple HTTP Live/MPEG.</li>
+</ul>
+
+
+<p>
+<a id="item-five"></a>
+<h4> Algorithms </h4>
+<p>
+Below algorithms helps to find top K movie recommendation using Heap DataStructure.
+</p>
+
+<span style="font-size:0.7em;width: 60%">
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">ListNode</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nextNode</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="bp">self</span><span class="p">.</span><span class="n">val</span><span class="o">=</span> <span class="n">val</span>
+<span class="bp">self</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">nextNode</span>
+
+
+<span class="k">def</span> <span class="nf">topKMovies</span><span class="p">(</span><span class="n">arrays</span><span class="p">):</span>
+<span class="n">heap</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">head</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+<span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">head</span><span class="p">))</span>
+
+    <span class="n">topMovies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">heap</span><span class="p">:</span>
+        <span class="n">nodeVal</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+        <span class="n">topMovies</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">nodeVal</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">:</span>
+            <span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">topMovies</span>
+
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">"__main__"</span><span class="p">:</span>
+
+    <span class="n">n1</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="bp">None</span><span class="p">)))</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="bp">None</span><span class="p">)))</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">topKMovies</span><span class="p">(</span><span class="n">array</span><span class="p">))</span></code></pre></figure>
+</span>
+</p></p>
 
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev image" href="/blog/skype-system-design/"><span>&laquo;&nbsp;Video Calling Apps System Design</span><img src="/assets/img/touring.jpg" alt=""></a><a class="next" href="/blog/file-storage/"><span>File Storage System Design&nbsp;&raquo;</span></a></footer>
+  <footer class="postNav clearfix"><a class="prev image" href="/blog/video-calling-system-design/"><span>&laquo;&nbsp;Video Calling Apps System Design</span><img src="/assets/img/touring.jpg" alt=""></a><a class="next" href="/blog/file-storage/"><span>File Storage System Design&nbsp;&raquo;</span></a></footer>
 </article>
 
 <!---->

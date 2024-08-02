@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Video Streaming System Design"
-date:   2024-06-31
-description: Popular streaming services such as YouTube/Netflix/Hulu helps to upload and stream videos.
+title:  "Video Calling Apps System Design"
+date:   2024-01-31
+image: touring.jpg
+description: Online video calling systems like Zoom/Skype
 ---
+
 
 **Table of content:**
 - [Functional Requirements](#item-one)
@@ -52,8 +54,8 @@ These services allow users to upload / stream /share videos.
 <h4>High Level System Design </h4>
 
 <figure>
-	<img src="/assets/img/youtube-system-design.png" alt=""> 
-	<figcaption>Video Streaming High Level System Design</figcaption>
+	<img src="/assets/img/zoom.png" alt=""> 
+	<figcaption>Video Calling High Level System Design</figcaption>
 </figure>
 
 

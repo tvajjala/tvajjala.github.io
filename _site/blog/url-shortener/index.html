@@ -10,7 +10,7 @@
 	<title>URL Shortener System Design</title>
 
 	<!-- Open Graph Meta -->
-	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="URL Shortener System Design" property="og:title" /><meta content="article" property="og:type" /><meta content="Generates shortURL for any given URL Link" property="og:description" /><meta content="http://localhost:4000/blog/url-shortener/" property="og:url" /><meta
+	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="URL Shortener System Design" property="og:title" /><meta content="article" property="og:type" /><meta content="URL shortening is used to create shorter aliases for long URLs." property="og:description" /><meta content="http://localhost:4000/blog/url-shortener/" property="og:url" /><meta
 		content="2024-05-30T00:00:00-05:00"
 		property="article:published_time"
 	/>
@@ -20,7 +20,7 @@
 	/><!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@thiru_vajjala" />
-	<meta name="twitter:creator" content="@thiru_vajjala" /><meta name="twitter:title" content="URL Shortener System Design" /><meta name="twitter:url" content="http://localhost:4000/blog/url-shortener/" /><meta name="twitter:description" content="Generates shortURL for any given URL Link" /><meta
+	<meta name="twitter:creator" content="@thiru_vajjala" /><meta name="twitter:title" content="URL Shortener System Design" /><meta name="twitter:url" content="http://localhost:4000/blog/url-shortener/" /><meta name="twitter:description" content="URL shortening is used to create shorter aliases for long URLs." /><meta
 		name="twitter:image:src"
 		content="http://localhost:4000/assets/img/touring.jpg"
 	/><!-- Favicon -->
@@ -68,24 +68,125 @@ ga('send', 'pageview');
       <div class="container">
          <article class="post"><header>
     <h3 class="postTitle">URL Shortener System Design</h3>
-    <p class="meta">May 30, 2024 | <span class="time">0</span> Minute Read</p>
+    <p class="meta">May 30, 2024 | <span class="time">5</span> Minute Read</p>
   </header>
 
-  <p class="intro"><span class="dropcap">Y</span>ou'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes! To add new posts, simply add a file in the `_posts` directory that follows the convention: YYYY-MM-DD-name-of-post.ext.</p>
+  <p><strong>Table of content:</strong></p>
+<ul>
+  <li><a href="#item-one">Functional Requirements</a></li>
+  <li><a href="#item-two">Non Functional Requirements</a></li>
+  <li><a href="#item-three">Capacity Estimation</a></li>
+  <li><a href="#item-four">High Level System Design</a></li>
+</ul>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
-<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/mojombo/jekyll">Jekyll’s GitHub repo</a>.</p>
+<blockquote>
+  <p>URL shortening is used to create shorter aliases for long URLs.</p>
+</blockquote>
 
+<h4 id="functional-requirements">Functional Requirements</h4>
+
+<ol>
+  <li>Given a URL, our service should generate a shorter and unique alias of it.</li>
+  <li>When users access a short link, our service should redirect them to the original link.</li>
+  <li>Users should optionally be able to pick a custom short link for their URL.</li>
+  <li>Links will expire after a standard default timespan. Users should be able to specify the expiration time.</li>
+</ol>
+
+<h4 id="non-functional-requirements">Non-Functional Requirements:</h4>
+<ol>
+  <li>The system should be highly available.</li>
+  <li>URL redirection should happen in real-time with minimal latency.</li>
+  <li>Shortened links should not be guessable (not predictable).</li>
+</ol>
+
+<h4 id="capacity-estimation">Capacity Estimation</h4>
+<ol>
+  <li>Read heavy system 1:100 write read ration</li>
+</ol>
+
+<h4 id="high-level-design">High Level Design</h4>
+
+<ol>
+  <li>Compute hash using MD5/ SHA256 of the given URL.</li>
+  <li>Encode the hash using base62 , base36</li>
+  <li>ShortURL key length will be 6-10 characters. <code class="language-plaintext highlighter-rouge">Ex: tinyurl.com/abcdefgh</code></li>
+  <li>If we are using base62 encoding . <code class="language-plaintext highlighter-rouge">62^10 = 65 Billion</code></li>
+  <li>Encoded string generates 21 character string. we need to take 6 chars from them as random.</li>
+</ol>
+
+<figure>
+	<img src="/assets/img/url_shortner.png" alt="" /> 
+	<figcaption>URLShortner High Level System Design</figcaption>
+</figure>
+
+<h5 id="kgskey-generation-service">KGS(Key Generation Service)</h5>
+<ul>
+  <li>With above approach, there is a possibility of key duplication.</li>
+  <li>KGS will make sure all the keys inserted into key-DB are unique.</li>
+  <li>KGS can use two tables to store keys:
+    <ul>
+      <li>one for keys that are not used yet, and one for all the used keys.</li>
+      <li>As soon as KGS gives keys to one of the servers, it can move them to the used keys table.</li>
+    </ul>
+  </li>
+  <li>KGS can always keep some keys in memory to quickly provide them whenever a server needs them.</li>
+</ul>
+
+<h5 id="partition">Partition</h5>
+
+<ol>
+  <li>Range based partitioning</li>
+  <li>Hash based partitioning</li>
+</ol>
+
+<h4 id="algorithms">Algorithms</h4>
+
+<p>Following algorithms used in URL Shortening service.</p>
+
+<h5 id="lru-cache">LRU Cache</h5>
+
+<p>Using LinkedHashMap to create caching that gives most recently used entries</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="k">class</span> <span class="nc">LRUCache</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>  <span class="c1"># size of the cache entries
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="p">.</span><span class="n">Lock</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lock</span><span class="p">.</span><span class="n">acquire</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">CacheElement</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="p">.</span><span class="n">capacity</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">.</span><span class="n">popitem</span><span class="p">(</span><span class="n">last</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="c1"># pop item last=False means remove from left
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">lock</span><span class="p">.</span><span class="n">release</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"return -1"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c1">#  raise Exception("Entry Not found")
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="c1"># if creation time older than 1 hr 10 , 12-1
+</span>        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Returning </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></code></pre></figure>
+<h5 id="encoding">Encoding</h5>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">base_encode</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+    <span class="nb">map</span> <span class="o">=</span> <span class="s">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"</span>
+    <span class="n">shortURL</span> <span class="o">=</span> <span class="s">""</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="mi">62</span>
+    <span class="k">while</span> <span class="nb">input</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">shortURL</span> <span class="o">+=</span> <span class="nb">map</span><span class="p">[</span><span class="nb">input</span> <span class="o">%</span> <span class="n">length</span><span class="p">]</span>
+        <span class="nb">input</span> <span class="o">//</span> <span class="n">length</span>
+    <span class="k">return</span> <span class="n">shortURL</span></code></pre></figure>
 
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev" href="/blog/ebay-bidding/"><span>&laquo;&nbsp;EBay Bidding System Design</span></a><a class="next" href="/blog/web-crawler/"><span>Web Crawler System Design&nbsp;&raquo;</span></a></footer>
+  <footer class="postNav clearfix"><a class="prev" href="/blog/file-storage/"><span>&laquo;&nbsp;File Storage System Design</span></a><a class="next" href="/blog/web-crawler/"><span>Web Crawler System Design&nbsp;&raquo;</span></a></footer>
 </article>
 
 <!---->

@@ -5,16 +5,61 @@ date:   2024-04-01
 description: Distributed file storage services such as Dropbox/Google Drive System Design
 ---
 
-<p class="intro"><span class="dropcap">L</span>orem ipsum thor smash liege-bastogne-liege landbouwkrediet ombregt krabbe, rouleur derby is for lovers bonk giro gilbert bidon. Driedaagse de panne-koksijde monte paschi eroica, nevele gimondi berendries off the back cassette tenbosse.</p>
 
-Bahamontes lanterne rouge normandie belgium. Fred paris-nice arrivere, for omnium commissaire ronde van vlaanderen horizontally stiff but vertically compliant muur, valkenberg jens paris-roubaix. Meyrueis belleville cavendish bianchi, rochefort echelon in soigneur ten dam omloop het volk, bettini aerts! Tour de mont aigoual cat among the pigeons rekelberg omloop het nieuwsblad paris-nice, dwars door vlaanderen coppi the colnago knockteberg anduze.
+**Table of content:**
+- [Functional Requirements](#item-one)
+- [Non Functional Requirements](#item-two)
+- [Capacity Estimation](#item-three)
+- [High Level System Design](#item-four)
 
-<img src="/assets/img/touring.jpg" alt=""> 
+> File Hosting Service like Dropbox enables users to store their data on cloud.
+>These servers are maintained by cloud storage providers and made available to users over a network.
 
-Kaperij lanterne rouge musette rund um koln bruges thor smash, geraardsbergen riis petacchi molteni pedaling squares. Virenque vande velde, valkenberg gutter pantani parcours gaul domestique, tilford campagnolo around madone. Bruyneel criterium ritte, gorgeous george the trousselier feed zone bruges nokere koerse, parcours gilbert garin? Anquetil valkenberg bettini cat among the pigeons.
 
-Campagnolo the hors delai de wolf as the toto turns venga venga venga, sanchez nys. Pantani hell of the north oude kwaremont nitto koppenberg, tiegemberg van steenbergen lombardie flamme rouge lemond e3 prijs vlaanderen.
+<a id="item-one"></a>
+<h4><a href="1"></a> Functional Requirements</h4>
 
-Planckaert berg ter stene freire gorgeous george in rouleur derby, vaughters fabianese omloop het volk rouleur play rouleur derby. Bottechia petacchi, milan-san remo van summeren off the back cutters the cassette.
+<ol>
+<li>User should able to upload/download files</li> 
+<li>System should sync files across all devices</li> 
+</ol>
 
-Nyvelocity pyrenees vande velde merckx. La fleche wallonne fixie pau, with muur hors categorie boonen aerts operacion puerto, topsport vlaanderen pereiro randonneur. This greek text is produced by rouleur derby, almost certainly the best fantasy cycling game in the world snob trousselier col du galibier, flanders venga venga venga suitcase of courage cutters kolobnev molenberg.
+<a id="item-two"></a>
+<h4>Non-Functional Requirements</h4>
+
+<ol>
+<li>System should highly reliable/scalable</li> 
+<li>System should be highly available with eventual consistency</li> 
+</ol>
+
+<a id="item-three"></a>
+<h4><a href="3"></a> Capacity Estimation</h4>
+
+<h6> Throughput </h6>
+<ul>
+<li>Read and Write heavy System</li>
+<li>DAU : 1M users and 10 files upload/day</li> 
+<li>100 uploads/sec</li> 
+
+</ul>
+<h6>Storage</h6>
+<ul>
+<li>100MB X10M -> 1000 TB/day - 1 Peta Byte/day</li> 
+</ul>
+
+
+<a id="item-four"></a>
+<h4>High Level System Design </h4>
+
+<figure>
+	<img src="/assets/img/dropbox.png" alt=""> 
+	<figcaption>Dropbox High Level System Design</figcaption>
+</figure>
+
+
+<ul>
+<li>  Internal Metadata: Will keep track of all the files, chunks,  their versions and their location in the file system  </li>
+<li>  Chunker split the files smaller pieces called chunks. it will also be responsible for reconstructing a file from its chunks.</li>
+<li>  Watcher monitor the local workspace folders and notify the indexer of any file changes</li>
+<li>  Indexer communicate with the remote synchronization service and internal metadata DB.</li>
+</ul>

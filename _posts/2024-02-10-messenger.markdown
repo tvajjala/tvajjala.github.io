@@ -5,14 +5,106 @@ date:   2024-02-10
 description: Messaging systems like WhatsApp/Facebook Messenger
 ---
 
-<p class="intro"><span class="dropcap">L</span>orem ipsum thor smash liege-bastogne-liege landbouwkrediet ombregt krabbe, rouleur derby is for lovers bonk giro gilbert bidon. Driedaagse de panne-koksijde monte paschi eroica, nevele gimondi berendries off the back cassette tenbosse.</p>
 
-Bahamontes lanterne rouge normandie belgium. Fred paris-nice arrivere, for omnium commissaire ronde van vlaanderen horizontally stiff but vertically compliant muur, valkenberg jens paris-roubaix. Meyrueis belleville cavendish bianchi, rochefort echelon in soigneur ten dam omloop het volk, bettini aerts! Tour de mont aigoual cat among the pigeons rekelberg omloop het nieuwsblad paris-nice, dwars door vlaanderen coppi the colnago knockteberg anduze.
+**Table of content:**
+- [Functional Requirements](#item-one)
+- [Non Functional Requirements](#item-two)
+- [Capacity Estimation](#item-three)
+- [High Level System Design](#item-four)
+- [Algorithms](#item-five)
 
-Kaperij lanterne rouge musette rund um koln bruges thor smash, geraardsbergen riis petacchi molteni pedaling squares. Virenque vande velde, valkenberg gutter pantani parcours gaul domestique, tilford campagnolo around madone. Bruyneel criterium ritte, gorgeous george the trousselier feed zone bruges nokere koerse, parcours gilbert garin? Anquetil valkenberg bettini cat among the pigeons.
+<p class="intro"><span class="dropcap">Y</span>ouTube or Netflix are popular video streaming services.
+These services allow users to upload / stream /share videos.
 
-Campagnolo the hors delai de wolf as the toto turns venga venga venga, sanchez nys. Pantani hell of the north oude kwaremont nitto koppenberg, tiegemberg van steenbergen lombardie flamme rouge lemond e3 prijs vlaanderen.
 
-Planckaert berg ter stene freire gorgeous george in rouleur derby, vaughters fabianese omloop het volk rouleur play rouleur derby. Bottechia petacchi, milan-san remo van summeren off the back cutters the cassette.
+<a id="item-one"></a>
+<h4><a href="1"></a> Functional Requirements</h4>
 
-Nyvelocity pyrenees vande velde merckx. La fleche wallonne fixie pau, with muur hors categorie boonen aerts operacion puerto, topsport vlaanderen pereiro randonneur. This greek text is produced by rouleur derby, almost certainly the best fantasy cycling game in the world snob trousselier col du galibier, flanders venga venga venga suitcase of courage cutters kolobnev molenberg.
+<ol>
+<li>User should be able to upload and stream videos</li> 
+<li>System should support different video formats</li> 
+<li>System should recommend videos to viewers</li> 
+</ol>
+
+<a id="item-two"></a>
+<h4>Non-Functional Requirements</h4>
+
+<ol>
+<li>System should highly reliable/scalable</li> 
+<li>System should be highly available with eventual consistency</li> 
+</ol>
+
+<a id="item-three"></a>
+<h4><a href="3"></a> Capacity Estimation</h4>
+
+<h6> Throughput </h6>
+<ul>
+<li>DAU : 5M users and each user watch 5 video/day</li> 
+<li>25Million views/day->  250 Views/sec(RPS)</li> 
+<li>10% of users upload->  5 videos/sec</li> 
+</ul>
+<h6>Storage</h6>
+<ul>
+<li>5M X 500MB= 250 TB/day</li> 
+</ul>
+
+
+<a id="item-four"></a>
+<h4>High Level System Design </h4>
+
+<figure>
+	<img src="/assets/img/whatsApp.png" alt=""> 
+	<figcaption>WhatsApp High Level System Design</figcaption>
+</figure>
+
+
+<ul>
+<li>  User uploads videos into object storage and updates medata into database(Cassandra) </li>
+<li>  Transcoder service will read from queue process them asynchronously and encodes into different format.</li>
+<li>  Different video formats make it available to CDN to improve view experience.</li>
+<li>  Video recommendation service uses two-tower approach to generation video recommendations.</li>
+<li>  Client stream videos on their devices using different streaming protocols such as Apple HTTP Live/MPEG.</li>
+</ul>
+
+
+<p>
+<a id="item-five"></a>
+<h4> Algorithms </h4>
+<p>
+Below algorithms helps to find top K movie recommendation using Heap DataStructure.
+</p>
+
+<span style="font-size:0.7em;width: 60%">
+
+{%- highlight python -%}
+from heapq import *
+
+class ListNode:
+def __init__(self, val=0, nextNode=None):
+self.val= val
+self.next = nextNode
+
+
+def topKMovies(arrays):
+heap = []
+for head in arrays:
+heappush(heap, (head.val, head))
+
+    topMovies = []
+    while heap:
+        nodeVal, node = heappop(heap)
+        topMovies.append(nodeVal)
+        if node.next:
+            heappush(heap, (node.next.val, node.next))
+    
+    return topMovies
+
+if __name__=="__main__":
+
+    n1 = ListNode(1, ListNode(5, ListNode(7, None)))
+    n2 = ListNode(2, ListNode(4, ListNode(8, None)))
+    array = [n1, n2]
+    print(topKMovies(array))
+
+{%- endhighlight -%}
+</span>
