@@ -7,11 +7,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
-	<title>Redis GeoHashing</title>
+	<title>Probabilistic Data Structures</title>
 
 	<!-- Open Graph Meta -->
-	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Redis GeoHashing" property="og:title" /><meta content="article" property="og:type" /><meta content="Redis geospatial indexes let you store coordinates and search for them. This data structure is useful for finding nearby points within a given radius or bounding box." property="og:description" /><meta content="http://localhost:4000/blog/redis-geohashing/" property="og:url" /><meta
-		content="2023-01-22T00:00:00-06:00"
+	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Probabilistic Data Structures" property="og:title" /><meta content="article" property="og:type" /><meta content="Trade accuracy for efficiency and scalability,consuming less memory and computational resources than deterministic alternatives" property="og:description" /><meta content="http://localhost:4000/blog/probablistic-data-structures/" property="og:url" /><meta
+		content="2024-06-23T00:00:00-05:00"
 		property="article:published_time"
 	/>
 	<meta content="http://localhost:4000/about/" property="article:author" /><meta
@@ -20,7 +20,7 @@
 	/><!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@" />
-	<meta name="twitter:creator" content="@" /><meta name="twitter:title" content="Redis GeoHashing" /><meta name="twitter:url" content="http://localhost:4000/blog/redis-geohashing/" /><meta name="twitter:description" content="Redis geospatial indexes let you store coordinates and search for them. This data structure is useful for finding nearby points within a given radius or bounding box." /><meta
+	<meta name="twitter:creator" content="@" /><meta name="twitter:title" content="Probabilistic Data Structures" /><meta name="twitter:url" content="http://localhost:4000/blog/probablistic-data-structures/" /><meta name="twitter:description" content="Trade accuracy for efficiency and scalability,consuming less memory and computational resources than deterministic alternatives" /><meta
 		name="twitter:image:src"
 		content="http://localhost:4000/assets/img/touring.jpg"
 	/><!-- Favicon -->
@@ -36,7 +36,7 @@
 	<!-- Canonical URL -->
 	<link
 		rel="canonical"
-		href="http://localhost:4000/blog/redis-geohashing/"
+		href="http://localhost:4000/blog/probablistic-data-structures/"
 	/><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -67,90 +67,99 @@ ga('send', 'pageview');
 <div class="content">
       <div class="container">
          <article class="post"><header>
-    <h3 class="postTitle">Redis GeoHashing</h3>
-    <p class="meta">January 22, 2023 | <span class="time">2</span> Minute Read</p>
+    <h3 class="postTitle">Probabilistic Data Structures</h3>
+    <p class="meta">June 23, 2024 | <span class="time">7</span> Minute Read</p>
   </header>
 
   <blockquote>
-  <p>Redis geospatial indexes let you store coordinates and search for them. 
-This data structure is useful for finding nearby points within a given radius or bounding box.</p>
+  <p>Probabilistic data structures can enable fast, scalable, and low-memory data processing
+for real-time analytics</p>
 </blockquote>
 
-<h3 id="geo-spatial-indexes">Geo Spatial Indexes</h3>
+<h5 id="bloom-filters">Bloom filters</h5>
 
-<p>There are two approaches for Geo Spatial indexing</p>
+<p>A Bloom filter is one of the probabilistic data structures supported by Redis Stack and is used to test whether an item is a member of a set.</p>
 
-<ul>
-  <li>Hash based Indexing - divide world into group with unique hash value
-    <ul>
-      <li>Even Grid</li>
-      <li>GeoHash</li>
-      <li>Cartesian Tiers</li>
-    </ul>
-  </li>
-  <li>Tree based Indexing
-    <ul>
-      <li>QuadTree</li>
-      <li>Google S2</li>
-      <li>RTree</li>
-    </ul>
-  </li>
-</ul>
+<ol>
+  <li>It is crucial as a data deduplication solution – that is, for removing duplicated data from a set.</li>
+  <li>It is a memory-efficient and fast data structure that uses a bit array and a set of hash functions to determine whether an item is in the set or not.</li>
+  <li>A Bloom filter simplifies the management and speed of solutions that require the existence or membership verification.</li>
+</ol>
 
-<h4 id="how-redis-geohashing-works">How Redis GeoHashing Works</h4>
-
-<p>Redis support below command to add and search within given radius. These algorithms can be used in Proximity services such as Yelp/Uber to identify users within given radius.</p>
+<p>Some other scenarios where Bloom filters represent an efficient solution are as follows:</p>
 
 <ul>
-  <li>GEOADD adds a location to a given geospatial index (note that longitude comes before latitude with this command).</li>
-  <li>GEOSEARCH returns locations with a given radius or a bounding box.</li>
+  <li><strong><em>User_registration:</em></strong> Blooms filters can be used to verify user existence without hitting database.</li>
+  <li><strong><em>Spam filtering:</em></strong> Maintaining a list of malicious URLs or IPs to prevent spam or fraud.</li>
+  <li><strong><em>Fraud detection:</em></strong> Checking whether a credit card number belongs to a list of blocked or suspicious credit cards (stolen or cloned). This is particularly useful because such a filter could also be shared between financial institutions without the risk of storing the number in clear text.</li>
+  <li><strong><em>Suspicious activity:</em></strong> Verifying user activity (geographical location, date and time of activity, category of a product being purchased, and so on) and preventing authentication or allowing certain operations until authentication or verification is completed using a stronger method.</li>
+  <li><strong><em>Ad placement and recommendations:</em></strong> Using the Bloom filter, you can answer questions such as “Has the user seen this ad?” and then act accordingly.</li>
+  <li><strong><em>Spell-checking:</em></strong> If a word does not belong to a filter, it is misspelled.</li>
 </ul>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> redis-cli
-127.0.0.1:6379&gt;
+<h5 id="top-k">TOP-K</h5>
 
-<span class="c"># adding users</span>
-127.0.0.1:6379&gt; GEOADD user:dasher <span class="nt">-122</span>.27652 37.805186 dasher1
-<span class="o">(</span>integer<span class="o">)</span> 1
-127.0.0.1:6379&gt; GEOADD user:dasher <span class="nt">-122</span>.34 37.805183 dasher2
-<span class="o">(</span>integer<span class="o">)</span> 1
+<p>The <code class="language-plaintext highlighter-rouge">Top-K</code> data structure is used to keep track of items with the highest rank, such as the top players in a leaderboard.
+The ranking, or score, is often based on the count of how many times an item appears in the data source (such as a stream), making the data structure ideal for identifying elements with the highest frequency.
+Among the most common use cases of this data structure are leaderboards, trending entities in a system, detecting network anomalies, and DDoS attacks.</p>
 
-<span class="c">#searching</span>
-127.0.0.1:6379&gt; GEOSEARCH user:dasher FROMLONLAT <span class="nt">-122</span>.2612767 37.7936847 BYRADIUS 10 KM WITHDIST
-1<span class="o">)</span> 1<span class="o">)</span> <span class="s2">"dasher2"</span>
-   2<span class="o">)</span> <span class="s2">"7.0357"</span>
-2<span class="o">)</span> 1<span class="o">)</span> <span class="s2">"dasher1"</span>
-   2<span class="o">)</span> <span class="s2">"1.8523"</span>
-
-<span class="c"># unique hash</span>
-GEOHASH user:dasher dasher1
-1<span class="o">)</span> <span class="s2">"9q9p1d0znt0"</span>
-
-GEOADD key <span class="o">[</span>NX | XX] <span class="o">[</span>CH] longitude latitude member <span class="o">[</span>longitude
-  latitude member ...]
-
-GEOADD Sicily 13.361389 38.115556 <span class="s2">"Palermo"</span> 15.087269 37.502669 <span class="s2">"Catania"</span>
-
-GEODIST Sicily Palermo Catania
-
-<span class="c"># GEORADIUS</span>
-127.0.0.1:6379&gt; GEORADIUS Sicily 15 37 200 km
-1<span class="o">)</span> <span class="s2">"Palermo"</span>
-2<span class="o">)</span> <span class="s2">"Catania"</span>
-3<span class="o">)</span> <span class="s2">"Cataniaa"</span>
-</code></pre></div></div>
-
-<h5 id="references">References</h5>
+<p>Similar to Cuckoo filters, <code class="language-plaintext highlighter-rouge">Top-K</code> uses buckets to store fingerprints and counters.
+This method employs a two-dimensional array characterized by its width and depth:</p>
 
 <ul>
-  <li><a href="https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.">https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.</a></li>
+  <li><code class="language-plaintext highlighter-rouge">width</code> represents the number of buckets within each array</li>
+  <li><code class="language-plaintext highlighter-rouge">depth</code> signifies the number of arrays or hash functions employed</li>
 </ul>
+
+<h5 id="cuckoo-filters">Cuckoo filters</h5>
+
+<p>Cuckoo filters are an evolution of Bloom filters that were published in 2014 and address the limitations of Bloom filters, especially around collision handling.</p>
+
+<p>“<code class="language-plaintext highlighter-rouge">This filter inherits its name from the cuckoo bird, famous for laying its eggs in the nests of other bird species and leaving them to be raised by the host bird. In doing so, the cuckoo pushes the other eggs or chicks out of the nest.</code>”</p>
+
+<p>Cuckoo filters use a fingerprint-based technique that allows for the fast and efficient handling of collisions and reduces the rate of false positives while maintaining the same space requirements as Bloom filters.</p>
+
+<p>Instead of storing the hashed version of an item as Bloom filters do, Cuckoo filters use multiple locations, or buckets, to store the fingerprint representation of the item. When a new item is added to the filter and a collision occurs at a candidate bucket, the existing item is moved to another candidate bucket. If that bucket is also occupied, the filter keeps searching until a bucket without the fingerprint is found or the filter reaches the maximum number of attempts to kick out existing items. This approach reduces the rate of false positives while maintaining the same space requirements as Bloom filters.</p>
+
+<h5 id="count-min-sketch">Count-Min sketch</h5>
+
+<p>The Count-Min sketch probabilistic data structure, like HyperLogLog, counts the items that have been added,
+with the difference that the Count-Min sketch counts the number of times specific items have been added – that is, their frequency.</p>
+
+<p>When using a Count-Min sketch data structure, any frequency counts below a predetermined threshold (established by the error rate) should be disregarded.
+The Count-Min sketch serves as a valuable tool for counting element frequencies in a data stream, especially when dealing with higher counts.</p>
+
+<h5 id="heavykeeper">HeavyKeeper</h5>
+
+<p>Collisions can be avoided using the HeavyKeeper algorithm, which relies on exponential decay.
+When a hash collision occurs (two elements compete for the same bucket),
+the algorithm initiates a reduction in the counter of the current occupant of the bucket.
+However, this reduction does not occur with every collision.</p>
+
+<h5 id="t-digest">T-digest</h5>
+
+<p>t-digest is a data structure for estimating quantiles from a data stream or a large dataset using a compact sketch.</p>
+
+<h5 id="hyperloglog">HyperLogLog</h5>
+
+<p>HyperLogLog is an efficient solution to count the number of unique occurrences in a set, which, in practice, is the cardinality of the set.</p>
+
+<p>This is especially useful when accuracy is not required: the count is probabilistic but presents a very low error.</p>
+
+<p>HyperLogLog does not store any information as the items that are added pass through a hashing function, so it is not possible to remove elements once they are counted.</p>
+
+<p>HyperLogLog is the simplest probabilistic data structure and using it is as easy as adding elements to it using the PFADD command:</p>
+
+<p>count unique items in a set using up to 12 KB of memory and with good approximation (with a standard error of 0.81%), let’s discover how to verify whether an item belongs to a set.
+For that, we will use the Bloom filter.</p>
+
+<h3 id="reference">Reference</h3>
 
 
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev" href="/blog/snowfakers/"><span>&laquo;&nbsp;How Snowflake Ids are unique</span></a><a class="next" href="/blog/messenger/"><span>Messenger App System Design&nbsp;&raquo;</span></a></footer>
+  <footer class="postNav clearfix"><a class="prev" href="/blog/shared-nothing-architecture/"><span>&laquo;&nbsp;Shared Nothing Architecture</span></a></footer>
 </article>
 
 <!---->

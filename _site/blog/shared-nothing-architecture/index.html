@@ -93,6 +93,13 @@ ga('send', 'pageview');
   <li>Comcast, Medium, Starbucks, Ola Cabs Adopted ScyllaDB to realize order-of-magnitude performance improvements and reduce hardware costs</li>
 </ul>
 
+<h4 id="why-discord-migrated-from-cassandra-to-scylladb">Why Discord migrated from Cassandra to ScyllaDB</h4>
+
+<p>Cassandra is a LSM Based data store, reads are more expensive than writes. Writes are appended to a commit log and written to an in memory structure called a <code class="language-plaintext highlighter-rouge">memtable</code> that is eventually flushed to disk. 
+Reads, however, need to query the <code class="language-plaintext highlighter-rouge">memtable</code> and potentially multiple SSTables (on-disk files), a more expensive operation.</p>
+
+<p>Read https://discord.com/blog/how-discord-stores-trillions-of-messages how discord migrated to ScyllaDB to improve performance and lower latency levels.</p>
+
 <h4 id="reference">Reference</h4>
 
 <ul>
@@ -103,7 +110,7 @@ ga('send', 'pageview');
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev" href="/blog/consensus-algorithms/"><span>&laquo;&nbsp;Distributed Consensus Algorithms</span></a></footer>
+  <footer class="postNav clearfix"><a class="prev" href="/blog/consensus-algorithms/"><span>&laquo;&nbsp;Distributed Consensus Algorithms</span></a><a class="next" href="/blog/probablistic-data-structures/"><span>Probabilistic Data Structures&nbsp;&raquo;</span></a></footer>
 </article>
 
 <!---->

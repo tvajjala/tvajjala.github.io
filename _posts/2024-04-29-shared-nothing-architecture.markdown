@@ -25,6 +25,15 @@ The three most commonly mentioned architectures for multiprocessor high transact
 * ScyllaDB embraces a shared-nothing approach that increases throughput and storage capacity as much as 10X that of Cassandra.
 *  Comcast, Medium, Starbucks, Ola Cabs Adopted ScyllaDB to realize order-of-magnitude performance improvements and reduce hardware costs
 
+#### Why Discord migrated from Cassandra to ScyllaDB
+
+Cassandra is a LSM Based data store, reads are more expensive than writes. Writes are appended to a commit log and written to an in memory structure called a `memtable` that is eventually flushed to disk. 
+Reads, however, need to query the `memtable` and potentially multiple SSTables (on-disk files), a more expensive operation. 
+
+Read https://discord.com/blog/how-discord-stores-trillions-of-messages how discord migrated to ScyllaDB to improve performance and lower latency levels.
+
+
+
 
 #### Reference
 

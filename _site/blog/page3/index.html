@@ -7,20 +7,16 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
-	<title>Redis GeoHashing</title>
+	<title>Thiru Vajjala</title>
 
 	<!-- Open Graph Meta -->
-	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Redis GeoHashing" property="og:title" /><meta content="article" property="og:type" /><meta content="Redis geospatial indexes let you store coordinates and search for them. This data structure is useful for finding nearby points within a given radius or bounding box." property="og:description" /><meta content="http://localhost:4000/blog/redis-geohashing/" property="og:url" /><meta
-		content="2023-01-22T00:00:00-06:00"
-		property="article:published_time"
-	/>
-	<meta content="http://localhost:4000/about/" property="article:author" /><meta
+	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Thiru Vajjala" property="og:title" /><meta content="article" property="og:type" /><meta content="Technical Blogs" property="og:description" /><meta content="http://localhost:4000/blog/page3/" property="og:url" /><meta
 		content="http://localhost:4000/assets/img/touring.jpg"
 		property="og:image"
 	/><!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@" />
-	<meta name="twitter:creator" content="@" /><meta name="twitter:title" content="Redis GeoHashing" /><meta name="twitter:url" content="http://localhost:4000/blog/redis-geohashing/" /><meta name="twitter:description" content="Redis geospatial indexes let you store coordinates and search for them. This data structure is useful for finding nearby points within a given radius or bounding box." /><meta
+	<meta name="twitter:creator" content="@" /><meta name="twitter:title" content="Thiru Vajjala" /><meta name="twitter:url" content="http://localhost:4000/blog/page3/" /><meta name="twitter:description" content="Technical Blogs" /><meta
 		name="twitter:image:src"
 		content="http://localhost:4000/assets/img/touring.jpg"
 	/><!-- Favicon -->
@@ -36,7 +32,7 @@
 	<!-- Canonical URL -->
 	<link
 		rel="canonical"
-		href="http://localhost:4000/blog/redis-geohashing/"
+		href="http://localhost:4000/blog/page3/"
 	/><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -66,94 +62,28 @@ ga('send', 'pageview');
  </div><!-- end .header -->
 <div class="content">
       <div class="container">
-         <article class="post"><header>
-    <h3 class="postTitle">Redis GeoHashing</h3>
-    <p class="meta">January 22, 2023 | <span class="time">2</span> Minute Read</p>
-  </header>
+         <div class="home" id="home">
 
-  <blockquote>
-  <p>Redis geospatial indexes let you store coordinates and search for them. 
-This data structure is useful for finding nearby points within a given radius or bounding box.</p>
-</blockquote>
-
-<h3 id="geo-spatial-indexes">Geo Spatial Indexes</h3>
-
-<p>There are two approaches for Geo Spatial indexing</p>
-
-<ul>
-  <li>Hash based Indexing - divide world into group with unique hash value
-    <ul>
-      <li>Even Grid</li>
-      <li>GeoHash</li>
-      <li>Cartesian Tiers</li>
-    </ul>
-  </li>
-  <li>Tree based Indexing
-    <ul>
-      <li>QuadTree</li>
-      <li>Google S2</li>
-      <li>RTree</li>
-    </ul>
-  </li>
-</ul>
-
-<h4 id="how-redis-geohashing-works">How Redis GeoHashing Works</h4>
-
-<p>Redis support below command to add and search within given radius. These algorithms can be used in Proximity services such as Yelp/Uber to identify users within given radius.</p>
-
-<ul>
-  <li>GEOADD adds a location to a given geospatial index (note that longitude comes before latitude with this command).</li>
-  <li>GEOSEARCH returns locations with a given radius or a bounding box.</li>
-</ul>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> redis-cli
-127.0.0.1:6379&gt;
-
-<span class="c"># adding users</span>
-127.0.0.1:6379&gt; GEOADD user:dasher <span class="nt">-122</span>.27652 37.805186 dasher1
-<span class="o">(</span>integer<span class="o">)</span> 1
-127.0.0.1:6379&gt; GEOADD user:dasher <span class="nt">-122</span>.34 37.805183 dasher2
-<span class="o">(</span>integer<span class="o">)</span> 1
-
-<span class="c">#searching</span>
-127.0.0.1:6379&gt; GEOSEARCH user:dasher FROMLONLAT <span class="nt">-122</span>.2612767 37.7936847 BYRADIUS 10 KM WITHDIST
-1<span class="o">)</span> 1<span class="o">)</span> <span class="s2">"dasher2"</span>
-   2<span class="o">)</span> <span class="s2">"7.0357"</span>
-2<span class="o">)</span> 1<span class="o">)</span> <span class="s2">"dasher1"</span>
-   2<span class="o">)</span> <span class="s2">"1.8523"</span>
-
-<span class="c"># unique hash</span>
-GEOHASH user:dasher dasher1
-1<span class="o">)</span> <span class="s2">"9q9p1d0znt0"</span>
-
-GEOADD key <span class="o">[</span>NX | XX] <span class="o">[</span>CH] longitude latitude member <span class="o">[</span>longitude
-  latitude member ...]
-
-GEOADD Sicily 13.361389 38.115556 <span class="s2">"Palermo"</span> 15.087269 37.502669 <span class="s2">"Catania"</span>
-
-GEODIST Sicily Palermo Catania
-
-<span class="c"># GEORADIUS</span>
-127.0.0.1:6379&gt; GEORADIUS Sicily 15 37 200 km
-1<span class="o">)</span> <span class="s2">"Palermo"</span>
-2<span class="o">)</span> <span class="s2">"Catania"</span>
-3<span class="o">)</span> <span class="s2">"Cataniaa"</span>
-</code></pre></div></div>
-
-<h5 id="references">References</h5>
-
-<ul>
-  <li><a href="https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.">https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.</a></li>
-</ul>
-
-
-
-
-  <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev" href="/blog/snowfakers/"><span>&laquo;&nbsp;How Snowflake Ids are unique</span></a><a class="next" href="/blog/messenger/"><span>Messenger App System Design&nbsp;&raquo;</span></a></footer>
-</article>
-
-<!---->
+	<div class="posts noList"><article>
+			<span class="date">January 22, 2023</span>
+			<h5>
+				<a class="post-link" href="/blog/redis-geohashing/">Redis GeoHashing</a>
+			</h5>
+			<p>Redis geospatial indexes let you store coordinates and search for them. This data structure is useful for finding nearby points within a given radius or bounding box.</p>
+		</article><article>
+			<span class="date">February 10, 2022</span>
+			<h5>
+				<a class="post-link" href="/blog/snowfakers/">How Snowflake Ids are unique</a>
+			</h5>
+			<p>Snowflake IDs, also known as snowflakes, are a type of unique identifier used in distributed computing to create time-ordered IDs</p>
+		</article></div>
+	<!-- Pagination links -->
+	<div class="pagination"><a
+			href="/blog/page2/"
+			class="previous button__outline"
+			>Newer Posts</a
+		></div>
+</div>
 
       </div>
    </div><!-- end .content --><div class="footer">

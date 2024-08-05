@@ -5,9 +5,101 @@
     <description>Technical Blogs</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 02 Aug 2024 10:03:25 -0500</pubDate>
-    <lastBuildDate>Fri, 02 Aug 2024 10:03:25 -0500</lastBuildDate>
+    <pubDate>Mon, 05 Aug 2024 17:59:40 -0500</pubDate>
+    <lastBuildDate>Mon, 05 Aug 2024 17:59:40 -0500</lastBuildDate>
     <generator>Jekyll v4.3.3</generator><item>
+        <title>Probabilistic Data Structures</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Probabilistic data structures can enable fast, scalable, and low-memory data processing
+for real-time analytics&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;bloom-filters&quot;&gt;Bloom filters&lt;/h5&gt;
+
+&lt;p&gt;A Bloom filter is one of the probabilistic data structures supported by Redis Stack and is used to test whether an item is a member of a set.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It is crucial as a data deduplication solution – that is, for removing duplicated data from a set.&lt;/li&gt;
+  &lt;li&gt;It is a memory-efficient and fast data structure that uses a bit array and a set of hash functions to determine whether an item is in the set or not.&lt;/li&gt;
+  &lt;li&gt;A Bloom filter simplifies the management and speed of solutions that require the existence or membership verification.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Some other scenarios where Bloom filters represent an efficient solution are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;User_registration:&lt;/em&gt;&lt;/strong&gt; Blooms filters can be used to verify user existence without hitting database.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Spam filtering:&lt;/em&gt;&lt;/strong&gt; Maintaining a list of malicious URLs or IPs to prevent spam or fraud.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Fraud detection:&lt;/em&gt;&lt;/strong&gt; Checking whether a credit card number belongs to a list of blocked or suspicious credit cards (stolen or cloned). This is particularly useful because such a filter could also be shared between financial institutions without the risk of storing the number in clear text.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Suspicious activity:&lt;/em&gt;&lt;/strong&gt; Verifying user activity (geographical location, date and time of activity, category of a product being purchased, and so on) and preventing authentication or allowing certain operations until authentication or verification is completed using a stronger method.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Ad placement and recommendations:&lt;/em&gt;&lt;/strong&gt; Using the Bloom filter, you can answer questions such as “Has the user seen this ad?” and then act accordingly.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Spell-checking:&lt;/em&gt;&lt;/strong&gt; If a word does not belong to a filter, it is misspelled.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;top-k&quot;&gt;TOP-K&lt;/h5&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Top-K&lt;/code&gt; data structure is used to keep track of items with the highest rank, such as the top players in a leaderboard.
+The ranking, or score, is often based on the count of how many times an item appears in the data source (such as a stream), making the data structure ideal for identifying elements with the highest frequency.
+Among the most common use cases of this data structure are leaderboards, trending entities in a system, detecting network anomalies, and DDoS attacks.&lt;/p&gt;
+
+&lt;p&gt;Similar to Cuckoo filters, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Top-K&lt;/code&gt; uses buckets to store fingerprints and counters.
+This method employs a two-dimensional array characterized by its width and depth:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;width&lt;/code&gt; represents the number of buckets within each array&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;depth&lt;/code&gt; signifies the number of arrays or hash functions employed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;cuckoo-filters&quot;&gt;Cuckoo filters&lt;/h5&gt;
+
+&lt;p&gt;Cuckoo filters are an evolution of Bloom filters that were published in 2014 and address the limitations of Bloom filters, especially around collision handling.&lt;/p&gt;
+
+&lt;p&gt;“&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;This filter inherits its name from the cuckoo bird, famous for laying its eggs in the nests of other bird species and leaving them to be raised by the host bird. In doing so, the cuckoo pushes the other eggs or chicks out of the nest.&lt;/code&gt;”&lt;/p&gt;
+
+&lt;p&gt;Cuckoo filters use a fingerprint-based technique that allows for the fast and efficient handling of collisions and reduces the rate of false positives while maintaining the same space requirements as Bloom filters.&lt;/p&gt;
+
+&lt;p&gt;Instead of storing the hashed version of an item as Bloom filters do, Cuckoo filters use multiple locations, or buckets, to store the fingerprint representation of the item. When a new item is added to the filter and a collision occurs at a candidate bucket, the existing item is moved to another candidate bucket. If that bucket is also occupied, the filter keeps searching until a bucket without the fingerprint is found or the filter reaches the maximum number of attempts to kick out existing items. This approach reduces the rate of false positives while maintaining the same space requirements as Bloom filters.&lt;/p&gt;
+
+&lt;h5 id=&quot;count-min-sketch&quot;&gt;Count-Min sketch&lt;/h5&gt;
+
+&lt;p&gt;The Count-Min sketch probabilistic data structure, like HyperLogLog, counts the items that have been added,
+with the difference that the Count-Min sketch counts the number of times specific items have been added – that is, their frequency.&lt;/p&gt;
+
+&lt;p&gt;When using a Count-Min sketch data structure, any frequency counts below a predetermined threshold (established by the error rate) should be disregarded.
+The Count-Min sketch serves as a valuable tool for counting element frequencies in a data stream, especially when dealing with higher counts.&lt;/p&gt;
+
+&lt;h5 id=&quot;heavykeeper&quot;&gt;HeavyKeeper&lt;/h5&gt;
+
+&lt;p&gt;Collisions can be avoided using the HeavyKeeper algorithm, which relies on exponential decay.
+When a hash collision occurs (two elements compete for the same bucket),
+the algorithm initiates a reduction in the counter of the current occupant of the bucket.
+However, this reduction does not occur with every collision.&lt;/p&gt;
+
+&lt;h5 id=&quot;t-digest&quot;&gt;T-digest&lt;/h5&gt;
+
+&lt;p&gt;t-digest is a data structure for estimating quantiles from a data stream or a large dataset using a compact sketch.&lt;/p&gt;
+
+&lt;h5 id=&quot;hyperloglog&quot;&gt;HyperLogLog&lt;/h5&gt;
+
+&lt;p&gt;HyperLogLog is an efficient solution to count the number of unique occurrences in a set, which, in practice, is the cardinality of the set.&lt;/p&gt;
+
+&lt;p&gt;This is especially useful when accuracy is not required: the count is probabilistic but presents a very low error.&lt;/p&gt;
+
+&lt;p&gt;HyperLogLog does not store any information as the items that are added pass through a hashing function, so it is not possible to remove elements once they are counted.&lt;/p&gt;
+
+&lt;p&gt;HyperLogLog is the simplest probabilistic data structure and using it is as easy as adding elements to it using the PFADD command:&lt;/p&gt;
+
+&lt;p&gt;count unique items in a set using up to 12 KB of memory and with good approximation (with a standard error of 0.81%), let’s discover how to verify whether an item belongs to a set.
+For that, we will use the Bloom filter.&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+
+</description><description>&lt;blockquote&gt;
+  &lt;p&gt;Probabilistic data structures can enable fast, scalable, and low-memory data processing
+for real-time analytics&lt;/p&gt;
+&lt;/blockquote&gt;
+</description><pubDate>Sun, 23 Jun 2024 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/blog/probablistic-data-structures/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/probablistic-data-structures/</guid></item><item>
         <title>Shared Nothing Architecture</title>
         <description>&lt;blockquote&gt;
   &lt;p&gt;Shared nothing architecture provides low latency, high bandwidth, as well as high availability.&lt;/p&gt;
@@ -30,6 +122,13 @@
   &lt;li&gt;ScyllaDB embraces a shared-nothing approach that increases throughput and storage capacity as much as 10X that of Cassandra.&lt;/li&gt;
   &lt;li&gt;Comcast, Medium, Starbucks, Ola Cabs Adopted ScyllaDB to realize order-of-magnitude performance improvements and reduce hardware costs&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h4 id=&quot;why-discord-migrated-from-cassandra-to-scylladb&quot;&gt;Why Discord migrated from Cassandra to ScyllaDB&lt;/h4&gt;
+
+&lt;p&gt;Cassandra is a LSM Based data store, reads are more expensive than writes. Writes are appended to a commit log and written to an in memory structure called a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memtable&lt;/code&gt; that is eventually flushed to disk. 
+Reads, however, need to query the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memtable&lt;/code&gt; and potentially multiple SSTables (on-disk files), a more expensive operation.&lt;/p&gt;
+
+&lt;p&gt;Read https://discord.com/blog/how-discord-stores-trillions-of-messages how discord migrated to ScyllaDB to improve performance and lower latency levels.&lt;/p&gt;
 
 &lt;h4 id=&quot;reference&quot;&gt;Reference&lt;/h4&gt;
 
@@ -863,88 +962,5 @@ These servers are maintained by cloud storage providers and made available to us
 &lt;/ul&gt;
 </description><pubDate>Fri, 10 Feb 2023 00:00:00 -0600</pubDate>
         <link>http://localhost:4000/blog/messenger/</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/messenger/</guid></item><item>
-        <title>Redis GeoHashing</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;Redis geospatial indexes let you store coordinates and search for them. 
-This data structure is useful for finding nearby points within a given radius or bounding box.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;geo-spatial-indexes&quot;&gt;Geo Spatial Indexes&lt;/h3&gt;
-
-&lt;p&gt;There are two approaches for Geo Spatial indexing&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Hash based Indexing - divide world into group with unique hash value
-    &lt;ul&gt;
-      &lt;li&gt;Even Grid&lt;/li&gt;
-      &lt;li&gt;GeoHash&lt;/li&gt;
-      &lt;li&gt;Cartesian Tiers&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Tree based Indexing
-    &lt;ul&gt;
-      &lt;li&gt;QuadTree&lt;/li&gt;
-      &lt;li&gt;Google S2&lt;/li&gt;
-      &lt;li&gt;RTree&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;how-redis-geohashing-works&quot;&gt;How Redis GeoHashing Works&lt;/h4&gt;
-
-&lt;p&gt;Redis support below command to add and search within given radius. These algorithms can be used in Proximity services such as Yelp/Uber to identify users within given radius.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;GEOADD adds a location to a given geospatial index (note that longitude comes before latitude with this command).&lt;/li&gt;
-  &lt;li&gt;GEOSEARCH returns locations with a given radius or a bounding box.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; redis-cli
-127.0.0.1:6379&amp;gt;
-
-&lt;span class=&quot;c&quot;&gt;# adding users&lt;/span&gt;
-127.0.0.1:6379&amp;gt; GEOADD user:dasher &lt;span class=&quot;nt&quot;&gt;-122&lt;/span&gt;.27652 37.805186 dasher1
-&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;integer&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1
-127.0.0.1:6379&amp;gt; GEOADD user:dasher &lt;span class=&quot;nt&quot;&gt;-122&lt;/span&gt;.34 37.805183 dasher2
-&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;integer&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1
-
-&lt;span class=&quot;c&quot;&gt;#searching&lt;/span&gt;
-127.0.0.1:6379&amp;gt; GEOSEARCH user:dasher FROMLONLAT &lt;span class=&quot;nt&quot;&gt;-122&lt;/span&gt;.2612767 37.7936847 BYRADIUS 10 KM WITHDIST
-1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;dasher2&quot;&lt;/span&gt;
-   2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;7.0357&quot;&lt;/span&gt;
-2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;dasher1&quot;&lt;/span&gt;
-   2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.8523&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# unique hash&lt;/span&gt;
-GEOHASH user:dasher dasher1
-1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;9q9p1d0znt0&quot;&lt;/span&gt;
-
-GEOADD key &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;NX | XX] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;CH] longitude latitude member &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;longitude
-  latitude member ...]
-
-GEOADD Sicily 13.361389 38.115556 &lt;span class=&quot;s2&quot;&gt;&quot;Palermo&quot;&lt;/span&gt; 15.087269 37.502669 &lt;span class=&quot;s2&quot;&gt;&quot;Catania&quot;&lt;/span&gt;
-
-GEODIST Sicily Palermo Catania
-
-&lt;span class=&quot;c&quot;&gt;# GEORADIUS&lt;/span&gt;
-127.0.0.1:6379&amp;gt; GEORADIUS Sicily 15 37 200 km
-1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Palermo&quot;&lt;/span&gt;
-2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Catania&quot;&lt;/span&gt;
-3&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Cataniaa&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;references&quot;&gt;References&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.&quot;&gt;https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description><description>&lt;blockquote&gt;
-  &lt;p&gt;Redis geospatial indexes let you store coordinates and search for them. 
-This data structure is useful for finding nearby points within a given radius or bounding box.&lt;/p&gt;
-&lt;/blockquote&gt;
-</description><pubDate>Sun, 22 Jan 2023 00:00:00 -0600</pubDate>
-        <link>http://localhost:4000/blog/redis-geohashing/</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/redis-geohashing/</guid></item></channel>
+        <guid isPermaLink="true">http://localhost:4000/blog/messenger/</guid></item></channel>
 </rss>

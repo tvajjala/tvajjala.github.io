@@ -7,11 +7,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
-	<title>Redis GeoHashing</title>
+	<title>How Snowflake Ids are unique</title>
 
 	<!-- Open Graph Meta -->
-	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="Redis GeoHashing" property="og:title" /><meta content="article" property="og:type" /><meta content="Redis geospatial indexes let you store coordinates and search for them. This data structure is useful for finding nearby points within a given radius or bounding box." property="og:description" /><meta content="http://localhost:4000/blog/redis-geohashing/" property="og:url" /><meta
-		content="2023-01-22T00:00:00-06:00"
+	<meta content="Thiru Vajjala Blogs" property="og:site_name" /><meta content="How Snowflake Ids are unique" property="og:title" /><meta content="article" property="og:type" /><meta content="Snowflake IDs, also known as snowflakes, are a type of unique identifier used in distributed computing to create time-ordered IDs" property="og:description" /><meta content="http://localhost:4000/blog/snowfakers/" property="og:url" /><meta
+		content="2022-02-10T00:00:00-06:00"
 		property="article:published_time"
 	/>
 	<meta content="http://localhost:4000/about/" property="article:author" /><meta
@@ -20,7 +20,7 @@
 	/><!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@" />
-	<meta name="twitter:creator" content="@" /><meta name="twitter:title" content="Redis GeoHashing" /><meta name="twitter:url" content="http://localhost:4000/blog/redis-geohashing/" /><meta name="twitter:description" content="Redis geospatial indexes let you store coordinates and search for them. This data structure is useful for finding nearby points within a given radius or bounding box." /><meta
+	<meta name="twitter:creator" content="@" /><meta name="twitter:title" content="How Snowflake Ids are unique" /><meta name="twitter:url" content="http://localhost:4000/blog/snowfakers/" /><meta name="twitter:description" content="Snowflake IDs, also known as snowflakes, are a type of unique identifier used in distributed computing to create time-ordered IDs" /><meta
 		name="twitter:image:src"
 		content="http://localhost:4000/assets/img/touring.jpg"
 	/><!-- Favicon -->
@@ -36,7 +36,7 @@
 	<!-- Canonical URL -->
 	<link
 		rel="canonical"
-		href="http://localhost:4000/blog/redis-geohashing/"
+		href="http://localhost:4000/blog/snowfakers/"
 	/><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -67,90 +67,46 @@ ga('send', 'pageview');
 <div class="content">
       <div class="container">
          <article class="post"><header>
-    <h3 class="postTitle">Redis GeoHashing</h3>
-    <p class="meta">January 22, 2023 | <span class="time">2</span> Minute Read</p>
+    <h3 class="postTitle">How Snowflake Ids are unique</h3>
+    <p class="meta">February 10, 2022 | <span class="time">1</span> Minute Read</p>
   </header>
 
-  <blockquote>
-  <p>Redis geospatial indexes let you store coordinates and search for them. 
-This data structure is useful for finding nearby points within a given radius or bounding box.</p>
+  <h4 id="what-are-snowflake-ids">What are Snowflake IDs</h4>
+
+<p>Snowflake IDs, also known as snowflakes, are a type of unique identifier used in distributed computing to create time-ordered IDs.</p>
+
+<p>Twitter (now X) created the format and uses it for tweet IDs, but other companies, such as Discord, Instagram, and Mastodon, have also adopted it</p>
+
+<h5 id="how-they-are-unique">How they are unique</h5>
+
+<p>Snowflake IDs are made up of multiple components, including:</p>
+
+<ul>
+  <li>Timestamp
+    <ul>
+      <li>The current time in milliseconds, which ensures that IDs generated at different nodes are roughly ordered.</li>
+    </ul>
+  </li>
+  <li>Node identifier
+    <ul>
+      <li>A unique identifier for the node (machine or server) generating the ID, which helps prevent collisions in distributed systems.</li>
+    </ul>
+  </li>
+  <li>Sequence number
+    <ul>
+      <li>A counter that starts at 0 and increments with each ID generated, which resolves conflicts when multiple IDs are generated at the same timestamp</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Snowflake IDs are 64-bit long unsigned integers, which provides a large space for unique identifiers. With default settings, a snowflake generator can generate up to 4,096 unique IDs per millisecond, which is the maximum that the format supports</p>
 </blockquote>
-
-<h3 id="geo-spatial-indexes">Geo Spatial Indexes</h3>
-
-<p>There are two approaches for Geo Spatial indexing</p>
-
-<ul>
-  <li>Hash based Indexing - divide world into group with unique hash value
-    <ul>
-      <li>Even Grid</li>
-      <li>GeoHash</li>
-      <li>Cartesian Tiers</li>
-    </ul>
-  </li>
-  <li>Tree based Indexing
-    <ul>
-      <li>QuadTree</li>
-      <li>Google S2</li>
-      <li>RTree</li>
-    </ul>
-  </li>
-</ul>
-
-<h4 id="how-redis-geohashing-works">How Redis GeoHashing Works</h4>
-
-<p>Redis support below command to add and search within given radius. These algorithms can be used in Proximity services such as Yelp/Uber to identify users within given radius.</p>
-
-<ul>
-  <li>GEOADD adds a location to a given geospatial index (note that longitude comes before latitude with this command).</li>
-  <li>GEOSEARCH returns locations with a given radius or a bounding box.</li>
-</ul>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> redis-cli
-127.0.0.1:6379&gt;
-
-<span class="c"># adding users</span>
-127.0.0.1:6379&gt; GEOADD user:dasher <span class="nt">-122</span>.27652 37.805186 dasher1
-<span class="o">(</span>integer<span class="o">)</span> 1
-127.0.0.1:6379&gt; GEOADD user:dasher <span class="nt">-122</span>.34 37.805183 dasher2
-<span class="o">(</span>integer<span class="o">)</span> 1
-
-<span class="c">#searching</span>
-127.0.0.1:6379&gt; GEOSEARCH user:dasher FROMLONLAT <span class="nt">-122</span>.2612767 37.7936847 BYRADIUS 10 KM WITHDIST
-1<span class="o">)</span> 1<span class="o">)</span> <span class="s2">"dasher2"</span>
-   2<span class="o">)</span> <span class="s2">"7.0357"</span>
-2<span class="o">)</span> 1<span class="o">)</span> <span class="s2">"dasher1"</span>
-   2<span class="o">)</span> <span class="s2">"1.8523"</span>
-
-<span class="c"># unique hash</span>
-GEOHASH user:dasher dasher1
-1<span class="o">)</span> <span class="s2">"9q9p1d0znt0"</span>
-
-GEOADD key <span class="o">[</span>NX | XX] <span class="o">[</span>CH] longitude latitude member <span class="o">[</span>longitude
-  latitude member ...]
-
-GEOADD Sicily 13.361389 38.115556 <span class="s2">"Palermo"</span> 15.087269 37.502669 <span class="s2">"Catania"</span>
-
-GEODIST Sicily Palermo Catania
-
-<span class="c"># GEORADIUS</span>
-127.0.0.1:6379&gt; GEORADIUS Sicily 15 37 200 km
-1<span class="o">)</span> <span class="s2">"Palermo"</span>
-2<span class="o">)</span> <span class="s2">"Catania"</span>
-3<span class="o">)</span> <span class="s2">"Cataniaa"</span>
-</code></pre></div></div>
-
-<h5 id="references">References</h5>
-
-<ul>
-  <li><a href="https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.">https://university.redis.com/courses/ru101/?_gl=1*19ud6xc*_gcl_au*NzIyNzE0MTMzLjE3MTY0NzU1NTI.</a></li>
-</ul>
-
 
 
 
   <!-- POST NAVIGATION -->
-  <footer class="postNav clearfix"><a class="prev" href="/blog/snowfakers/"><span>&laquo;&nbsp;How Snowflake Ids are unique</span></a><a class="next" href="/blog/messenger/"><span>Messenger App System Design&nbsp;&raquo;</span></a></footer>
+  <footer class="postNav clearfix"><a class="next" href="/blog/redis-geohashing/"><span>Redis GeoHashing&nbsp;&raquo;</span></a></footer>
 </article>
 
 <!---->
