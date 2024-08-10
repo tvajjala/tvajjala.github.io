@@ -78,11 +78,7 @@ This is especially useful when accuracy is not required: the count is probabilis
 
 HyperLogLog does not store any information as the items that are added pass through a hashing function, so it is not possible to remove elements once they are counted.
 
-HyperLogLog is the simplest probabilistic data structure and using it is as easy as adding elements to it using the PFADD command:
-
-count unique items in a set using up to 12 KB of memory and with good approximation (with a standard error of 0.81%), let’s discover how to verify whether an item belongs to a set.
-For that, we will use the Bloom filter.
-
 
 ### Reference 
 
+* Patterns of distributed Systems

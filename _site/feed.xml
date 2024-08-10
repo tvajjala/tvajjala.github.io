@@ -5,8 +5,8 @@
     <description>Technical Blogs</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 05 Aug 2024 17:59:40 -0500</pubDate>
-    <lastBuildDate>Mon, 05 Aug 2024 17:59:40 -0500</lastBuildDate>
+    <pubDate>Tue, 06 Aug 2024 10:27:26 -0500</pubDate>
+    <lastBuildDate>Tue, 06 Aug 2024 10:27:26 -0500</lastBuildDate>
     <generator>Jekyll v4.3.3</generator><item>
         <title>Probabilistic Data Structures</title>
         <description>&lt;blockquote&gt;
@@ -110,9 +110,9 @@ for real-time analytics&lt;/p&gt;
 &lt;p&gt;The three most commonly mentioned architectures for multiprocessor high transaction rate systems are:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt; Shared memory (SM), i.e. multiple processors shared a common central memory&lt;/li&gt;
-&lt;li&gt; Shared disk (SD), i.e. multiple processors each with private memory share a common collection of disks&lt;/li&gt;
-&lt;li&gt; Shared nothing (SN), i.e. neither memory nor peripheral storage is shared among processors&lt;/li&gt;
+&lt;li&gt; &lt;b&gt;Shared memory (SM)&lt;/b&gt;, i.e. multiple processors shared a common central memory&lt;/li&gt;
+&lt;li&gt; &lt;b&gt;Shared disk (SD)&lt;/b&gt;, i.e. multiple processors each with private memory share a common collection of disks&lt;/li&gt;
+&lt;li&gt; &lt;b&gt;Shared nothing (SN)&lt;/b&gt;, i.e. neither memory nor peripheral storage is shared among processors&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;scylladb&quot;&gt;ScyllaDB&lt;/h4&gt;
@@ -128,14 +128,14 @@ for real-time analytics&lt;/p&gt;
 &lt;p&gt;Cassandra is a LSM Based data store, reads are more expensive than writes. Writes are appended to a commit log and written to an in memory structure called a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memtable&lt;/code&gt; that is eventually flushed to disk. 
 Reads, however, need to query the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memtable&lt;/code&gt; and potentially multiple SSTables (on-disk files), a more expensive operation.&lt;/p&gt;
 
-&lt;p&gt;Read https://discord.com/blog/how-discord-stores-trillions-of-messages how discord migrated to ScyllaDB to improve performance and lower latency levels.&lt;/p&gt;
+&lt;p&gt;Read this &lt;a href=&quot;https://discord.com/blog/how-discord-stores-trillions-of-messages&quot;&gt;blog&lt;/a&gt; how discord migrated to ScyllaDB to improve performance and lower latency levels.&lt;/p&gt;
 
 &lt;h4 id=&quot;reference&quot;&gt;Reference&lt;/h4&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.scylladb.com/glossary/shared-nothing-architecture/&quot;&gt;https://www.scylladb.com/glossary/shared-nothing-architecture/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://discord.com/blog/how-discord-stores-trillions-of-messages&quot;&gt;https://discord.com/blog/how-discord-stores-trillions-of-messages&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 </description><description>&lt;blockquote&gt;
   &lt;p&gt;Shared nothing architecture provides low latency, high bandwidth, as well as high availability.&lt;/p&gt;
 &lt;/blockquote&gt;

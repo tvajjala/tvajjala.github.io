@@ -14,9 +14,9 @@ description: Shared nothing architecture provides low latency, high bandwidth, a
 The three most commonly mentioned architectures for multiprocessor high transaction rate systems are:
 
 <ul>
-<li> Shared memory (SM), i.e. multiple processors shared a common central memory</li>
-<li> Shared disk (SD), i.e. multiple processors each with private memory share a common collection of disks</li>
-<li> Shared nothing (SN), i.e. neither memory nor peripheral storage is shared among processors</li>
+<li> <b>Shared memory (SM)</b>, i.e. multiple processors shared a common central memory</li>
+<li> <b>Shared disk (SD)</b>, i.e. multiple processors each with private memory share a common collection of disks</li>
+<li> <b>Shared nothing (SN)</b>, i.e. neither memory nor peripheral storage is shared among processors</li>
 </ul>
 
 #### ScyllaDB
@@ -30,7 +30,7 @@ The three most commonly mentioned architectures for multiprocessor high transact
 Cassandra is a LSM Based data store, reads are more expensive than writes. Writes are appended to a commit log and written to an in memory structure called a `memtable` that is eventually flushed to disk. 
 Reads, however, need to query the `memtable` and potentially multiple SSTables (on-disk files), a more expensive operation. 
 
-Read https://discord.com/blog/how-discord-stores-trillions-of-messages how discord migrated to ScyllaDB to improve performance and lower latency levels.
+Read this [blog](https://discord.com/blog/how-discord-stores-trillions-of-messages) how discord migrated to ScyllaDB to improve performance and lower latency levels.
 
 
 
@@ -38,4 +38,4 @@ Read https://discord.com/blog/how-discord-stores-trillions-of-messages how disco
 #### Reference
 
 -  [https://www.scylladb.com/glossary/shared-nothing-architecture/](https://www.scylladb.com/glossary/shared-nothing-architecture/)
-
+-  [https://discord.com/blog/how-discord-stores-trillions-of-messages](https://discord.com/blog/how-discord-stores-trillions-of-messages)
